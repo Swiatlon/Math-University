@@ -9,4 +9,12 @@ export const globalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
 }
+#root{
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: grid;
+    grid-template-rows: 130px auto ;  // Navigation + Elements
+    background: #F5FAFE;
+}
 `;
