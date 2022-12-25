@@ -13,8 +13,6 @@ export const globalStyle = createGlobalStyle`
     width: 100%;
     min-height: 100vh;
     position: relative;
-    display: grid;
-    grid-template-rows: 130px auto ;  // Navigation + Elements
     background: #F5FAFE;
 }
 `;
