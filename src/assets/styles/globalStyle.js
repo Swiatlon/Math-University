@@ -15,4 +15,8 @@ export const globalStyle = createGlobalStyle`
     position: relative;
     background: #F5FAFE;
 }
+a{
+    text-decoration: none;
+    color: white;
+}
 `;
