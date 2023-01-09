@@ -19,7 +19,7 @@ export const Menu = styled.ul`
     display: block;
   }
   .hamburger {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     margin-right: 40px;
