@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 export const TopicCenterDiv = styled.div`
   box-shadow: 7px 7px 2px 0px rgb(0 0 0 / 75%);
-  width: 530px;
+  width: 700px;
+  position: relative;
   margin-top: 10rem;
   min-height: 80vh;
   padding-bottom: 40px;
