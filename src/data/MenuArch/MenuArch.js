@@ -1,10 +1,9 @@
 export const menuArch = [
   {
-    title: 'O nas',
+    title: 'O nas(Coming Soon!)',
   },
   {
-    title: 'Informatyka',
-    submenu: [{ title: 'Binarka', submenu: [{ title: 'test' }] }],
+    title: 'Informatyka(Coming Soon!)',
   },
   {
     title: 'logo',
@@ -14,24 +13,19 @@ export const menuArch = [
     title: 'Matematyka',
     submenu: [
       {
-        title: 'Szkoła Podstawowa',
-        submenu: [{ title: 'Algebra Liniowa' }, { title: 'Statystyka Opisowa' }],
+        title: 'Szkoła Podstawowa(Coming Soon!)',
       },
       {
-        title: 'Szkoła Średnia',
-        submenu: [{ title: 'Algebra Liniowa' }, { title: 'Statystyka Opisowa' }],
+        title: 'Szkoła Średnia(Coming Soon!)',
       },
       {
         title: 'Studia',
-        submenu: [
-          { title: 'Algebra Liniowa', submenu: [{ title: 'Macierze' }, { title: 'Liczby Zespolone' }] },
-          { title: 'Statystyka Opisowa', submenu: [{ title: 'Spearmaan' }] },
-        ],
+        submenu: [{ title: 'Algebra Liniowa', submenu: [{ title: 'Liczby Zespolone' }] }],
       },
     ],
   },
   {
-    title: 'Kontakt',
+    title: 'Kontakt(Coming Soon!)',
   },
   {
     title: 'hamburger-icon',
