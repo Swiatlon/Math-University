@@ -33,6 +33,12 @@ export const LiItem = styled.li`
   && li:last-child {
     border-bottom: none;
   }
+  a {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
   @media (max-width: ${size.laptop}) {
     // MEDIA AND LAPTOPS
     width: 100%;

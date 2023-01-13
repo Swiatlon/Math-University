@@ -37,7 +37,7 @@ function Navigation() {
               );
             } else {
               //First Menu need to have div as parent of li elements
-              return <MenuItem items={item} key={index} depthLevel={depthLevel} typeOfItem={typeOfItem}></MenuItem>;
+              return <MenuItem items={item} key={index} depthLevel={depthLevel}></MenuItem>;
             }
           };
           return ItemContent();

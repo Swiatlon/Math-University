@@ -18,12 +18,15 @@ export const menuArch = [
         submenu: [{ title: 'Algebra Liniowa' }, { title: 'Statystyka Opisowa' }],
       },
       {
-        title: 'Szkoła średnia',
+        title: 'Szkoła Średnia',
         submenu: [{ title: 'Algebra Liniowa' }, { title: 'Statystyka Opisowa' }],
       },
       {
         title: 'Studia',
-        submenu: [{ title: 'Algebra Liniowa' }, { title: 'Statystyka Opisowa', submenu: [{ title: 'Spearmaan' }] }],
+        submenu: [
+          { title: 'Algebra Liniowa', submenu: [{ title: 'Macierze' }, { title: 'Liczby Zespolone' }] },
+          { title: 'Statystyka Opisowa', submenu: [{ title: 'Spearmaan' }] },
+        ],
       },
     ],
   },
