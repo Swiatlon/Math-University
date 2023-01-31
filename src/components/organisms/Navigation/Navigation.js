@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Menu } from './Navigation.style';
 import { menuArch } from 'data/MenuArch/MenuArch';
 import MenuItem from 'components/atoms/MenuItem/MenuItem';
@@ -10,8 +10,14 @@ import { useState } from 'react';
 
 function Navigation() {
   const [hidden, setHidden] = useState(false);
+  const menuRef = useRef(null);
+  useEffect(() => {
+    if (hidden === false) {
+      menuRef.current.scrollTo(0, 0);
+    }
+  }, [hidden]);
   return (
-    <Nav className={hidden ? 'navShow' : 'navHide'}>
+    <Nav className={hidden ? 'navShow' : 'navHide'} ref={menuRef}>
       <Menu>
         {menuArch.map((item, index) => {
           const depthLevel = -1;
@@ -30,7 +36,7 @@ function Navigation() {
                   alt={item.title}
                   className="hamburger"
                   key={index}
-                  onClick={() => {
+                  onClick={function () {
                     setHidden(!hidden);
                   }}
                 />
