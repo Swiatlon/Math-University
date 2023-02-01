@@ -6,9 +6,5 @@ export const TopicSubTitleContent = styled.div`
   margin-top: 22px;
   width: 100%;
   position: relative;
-  input[name='coordinate-input'] {
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid gray;
-  }
+  /* display: flex; */
 `;

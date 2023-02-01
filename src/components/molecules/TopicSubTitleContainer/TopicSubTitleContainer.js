@@ -9,16 +9,14 @@ function TopicSubTitleContainer({ children, subTitle: title }) {
   const [hide, setHide] = useState(initialState);
   return (
     <SubTitleContainer>
-      <TopicSubTitle>
-        {title}
-        <SubTitleToggleButton
-          onClick={() => {
-            setHide(!hide);
-          }}
-        >
-          {hide === true ? '+' : '-'}
-        </SubTitleToggleButton>
-      </TopicSubTitle>
+      <TopicSubTitle>{title}</TopicSubTitle>
+      <SubTitleToggleButton
+        onClick={() => {
+          setHide(!hide);
+        }}
+      >
+        {hide === true ? '+' : '-'}
+      </SubTitleToggleButton>
       <div className={hide ? 'hide' : 'show'}>{children}</div>
     </SubTitleContainer>
   );
