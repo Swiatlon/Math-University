@@ -23,7 +23,6 @@ export const ComplexNumbersTable = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
   margin-bottom: 20px;
-  color: black;
   font-size: 16px;
   div {
     display: grid;
@@ -40,10 +39,11 @@ export const ComplexNumbersTable = styled.div`
   p {
     background: white;
     text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
     border: 1px solid black;
     width: 60%;
+    color: black;
+    overflow: hidden;
+    word-break: break-all;
   }
   @media (max-width: ${size.tablet}) {
     div {
