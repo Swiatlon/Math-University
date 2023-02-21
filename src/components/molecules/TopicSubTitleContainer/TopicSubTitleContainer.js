@@ -4,22 +4,20 @@ import { SubTitleToggleButton } from '../../atoms/SubTitleToggleButton/SubTitleB
 import { useState } from 'react';
 import React from 'react';
 
-function TopicSubTitleContainer({ children, subTitle: title,  }) {
+function TopicSubTitleContainer({ children, subTitle: title }) {
   const initialState = title !== 'Opis tematu:' ? true : false;
   const [hide, setHide] = useState(initialState);
   return (
     <SubTitleContainer>
-      <TopicSubTitle>
-        {title}
-        <SubTitleToggleButton
-          onClick={() => {
-            setHide(!hide);
-          }}
-        >
-          {hide === true ? '+' : '-'}
-        </SubTitleToggleButton>
-      </TopicSubTitle>
-      {!hide && children}
+      <TopicSubTitle>{title}</TopicSubTitle>
+      <SubTitleToggleButton
+        onClick={() => {
+          setHide(!hide);
+        }}
+      >
+        {hide === true ? '+' : '-'}
+      </SubTitleToggleButton>
+      <div className={hide ? 'hide' : 'show'}>{children}</div>
     </SubTitleContainer>
   );
 }

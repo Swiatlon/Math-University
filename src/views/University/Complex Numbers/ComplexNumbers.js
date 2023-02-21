@@ -2,30 +2,73 @@ import React from 'react';
 import { TopicTitle } from 'components/atoms/TopicTitle/TopicTitle.style';
 import { TopicSubTitleContent } from 'components/atoms/TopicSubTitleContent/TopicSubTitleContent.style';
 import TopicSubTitleContainer from 'components/molecules/TopicSubTitleContainer/TopicSubTitleContainer';
+import { ComplexNumbersTable } from './ComplexNumbers.style';
+import { ComplexNumbersCoordinate } from './ComplexNumbers.style';
 import overview from 'assets/images/ComplexNumbers.jpg';
-import { useRef, useEffect } from 'react';
+import { ComplexNumberInput } from './ComplexNumbers.style';
+import { useRef, useEffect, useState } from 'react';
 import MathCoordinateSystem from 'helpers/MathCoordinateSystem';
-import { useState } from 'react';
+import math, { evaluate, sqrt, complex, re, phi } from 'mathjs';
 function ComplexNumbers() {
-  //Input Handler
-  const initialState = '';
-  const [complexNumber, setComplexNumber] = useState(initialState);
-  const inputHandler = (e) => {
-    setComplexNumber(e.target.value);
+  const intitialResultState = {
+    result: '',
+    conjugate: '',
+    module: '',
+    argument: '',
+    trigonometricForm: '',
+    re: '',
+    im: '',
+    errorOccuried: false,
   };
+  const [results, setResults] = useState(intitialResultState);
+  // Input
+  const inputRef = useRef(null);
+  // Typing + Submit handler
+  let timer;
+  function inputHandler(e) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      // when typing end
+      const inputValue = inputRef.current.value.replace(/\s/g, '').trim().toLowerCase();
+      try {
+        const result = complex(evaluate(inputValue));
+        const degree = Math.floor(result.toPolar().phi * (180 / 3.14));
+        const phiArg = result.toPolar().phi;
+        const sqrtArg = result.re * result.re + result.im * result.im;
+        const module = `√${sqrtArg} = ${parseFloat(result.toPolar().r).toFixed(2)}`;
+        const trigForm = `√${sqrtArg}(cos(${degree}°) + isin(${degree}°)`;
+        const resultString = `${(Math.cos(phiArg) * sqrtArg + Math.sin(phiArg) * sqrtArg).toFixed(3)}`;
+        setResults({
+          result: resultString,
+          re: Math.round(result.re),
+          im: result.im,
+          conjugate: result.conjugate().format(),
+          argument: `${degree}°`,
+          module: module,
+          trigonometricForm: trigForm,
+        });
+      } catch (error) {
+        if (inputValue.length === 0) {
+          setResults(intitialResultState);
+        } else {
+          setResults({ errorOccuried: true });
+        }
+      }
+    }, 1000);
+  }
   //CoordinateSystem
-  const canvasRef = useRef(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (canvas != null) {
-      canvas.width = 600;
-      canvas.height = 600;
-      const amountOfNumbers = 6;
-      const field = new MathCoordinateSystem(canvas, amountOfNumbers);
-      field.drawMap();
-      // field.drawPoint(1, 1);
-    }
-  }, [canvasRef]);
+  // const canvasRef = useRef(null);
+  // useEffect(() => {
+  //   const canvas = canvasRef.current;
+  //   if (canvas != null) {
+  //     const amountOfNumbers = 7;
+  //     canvas.width = 250;
+  //     canvas.height = 250;
+  //     const field = new MathCoordinateSystem(canvas, amountOfNumbers);
+  //     field.drawMap();
+  //     field.drawPoint(2, 2);
+  //   }
+  // }, [canvasRef]);
   return (
     <>
       <TopicTitle>Liczby Zespolone</TopicTitle>
@@ -40,7 +83,7 @@ function ComplexNumbers() {
 
       <TopicSubTitleContainer subTitle="Wytłumaczenie tematu:">
         <TopicSubTitleContent>
-          <img src={overview} alt="overview" />
+          <img src={overview} alt="overview" className="center-img" />
         </TopicSubTitleContent>
       </TopicSubTitleContainer>
 
@@ -52,14 +95,39 @@ function ComplexNumbers() {
 
       <TopicSubTitleContainer subTitle="Kalkulator:">
         <TopicSubTitleContent>
-          <input
+          <h3>Twoja liczba zespolona:</h3>
+          <ComplexNumberInput
             type="text"
-            value={complexNumber}
             placeholder="Wpisz swoją liczbe zespoloną"
-            onChange={inputHandler}
-            name="coordinate-input"
-          ></input>
-          <canvas ref={canvasRef}></canvas>
+            name="ComplexNumberValue"
+            ref={inputRef}
+            onInput={inputHandler}
+          ></ComplexNumberInput>
+          {results.errorOccuried && <p className="error-message">Wrong expression, you need to write it correct!</p>}
+          <ComplexNumbersTable>
+            <div>
+              Wynik: <p>{results.result}</p>
+            </div>
+            <div>
+              Sprzężenie: <p>{results.conjugate}</p>
+            </div>
+            <div>
+              Moduł ∣Z∣: <p>{results.module}</p>
+            </div>
+            <div>
+              Argument: <p>{results.argument}</p>
+            </div>
+            <div>
+              Postać trygonometryczna: <p>{results.trigonometricForm}</p>
+            </div>
+            <div>
+              Część rzeczywista - Re(z): <p>{results.re}</p>
+            </div>
+            <div>
+              Część urojona - Im(z): <p>{results.im}</p>
+            </div>
+          </ComplexNumbersTable>
+          {/* <ComplexNumbersCoordinate ref={canvasRef}></ComplexNumbersCoordinate> */}
         </TopicSubTitleContent>
       </TopicSubTitleContainer>
     </>

@@ -3,7 +3,10 @@ export const menuArch = [
     title: 'O nas(Coming Soon!)',
   },
   {
-    title: 'Informatyka(Coming Soon!)',
+
+    title: 'Informatyka',
+
+
   },
   {
     title: 'logo',
@@ -13,10 +16,12 @@ export const menuArch = [
     title: 'Matematyka',
     submenu: [
       {
-        title: 'Szkoła Podstawowa(Coming Soon!)',
+
+        title: 'Szkoła Podstawowa',
       },
       {
-        title: 'Szkoła Średnia(Coming Soon!)',
+        title: 'Szkoła Średnia',
+
       },
       {
         title: 'Studia',
