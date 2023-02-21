@@ -4,7 +4,6 @@ export const menuArch = [
   },
   {
     title: 'Informatyka',
-    submenu: [{ title: 'Binarka', submenu: [{ title: 'test' }] }],
   },
   {
     title: 'logo',
@@ -15,18 +14,13 @@ export const menuArch = [
     submenu: [
       {
         title: 'Szkoła Podstawowa',
-        submenu: [{ title: 'Algebra Liniowa' }, { title: 'Statystyka Opisowa' }],
       },
       {
         title: 'Szkoła Średnia',
-        submenu: [{ title: 'Algebra Liniowa' }, { title: 'Statystyka Opisowa' }],
       },
       {
         title: 'Studia',
-        submenu: [
-          { title: 'Algebra Liniowa', submenu: [{ title: 'Macierze' }, { title: 'Liczby Zespolone' }] },
-          { title: 'Statystyka Opisowa', submenu: [{ title: 'Spearmaan' }] },
-        ],
+        submenu: [{ title: 'Algebra Liniowa', submenu: [{ title: 'Liczby Zespolone' }] }],
       },
     ],
   },
