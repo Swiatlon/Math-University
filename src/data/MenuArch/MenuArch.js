@@ -1,9 +1,12 @@
 export const menuArch = [
   {
-    title: 'O nas',
+    title: 'O nas(Coming Soon!)',
   },
   {
+
     title: 'Informatyka',
+
+
   },
   {
     title: 'logo',
@@ -13,10 +16,12 @@ export const menuArch = [
     title: 'Matematyka',
     submenu: [
       {
+
         title: 'Szkoła Podstawowa',
       },
       {
         title: 'Szkoła Średnia',
+
       },
       {
         title: 'Studia',
@@ -25,7 +30,7 @@ export const menuArch = [
     ],
   },
   {
-    title: 'Kontakt',
+    title: 'Kontakt(Coming Soon!)',
   },
   {
     title: 'hamburger-icon',
