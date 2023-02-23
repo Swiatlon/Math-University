@@ -13,7 +13,8 @@ export const menuArch = [
     title: 'Matematyka',
     submenu: [
       {
-        title: 'Szkoła Podstawowa(Coming Soon!)',
+        title: 'Szkoła Podstawowa',
+        submenu: [{ title: 'Działania', submenu: [{ title: 'Działania pisemne' }] }],
       },
       {
         title: 'Szkoła Średnia(Coming Soon!)',
