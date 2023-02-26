@@ -39,6 +39,9 @@ export const SummaryContainer = styled.div`
   p:nth-child(1) {
     color: lightblue;
   }
+  p:not(:nth-child(1)) {
+    letter-spacing: 2px;
+  }
   p:nth-child(3) {
     border-bottom: 1px solid black;
   }

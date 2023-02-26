@@ -8,15 +8,23 @@ import overview from 'assets/images/writtenMath.jpg';
 import { useRef, useState } from 'react';
 import { SummaryContainer } from './WrittenMath.style';
 function WrittenMath() {
+  console.log('rerender');
   const initialState = {
     isSubmited: false,
     result: null,
     operation: null,
     overfloow: null,
+    errorOccuried: false,
+    errorMessage: false,
   };
+
+  const numInitalState = {
+    firstNum: '',
+    secondNum: '',
+  };
+
   const [calucation, setCalculation] = useState(initialState);
-  const firstNumInput = useRef(null);
-  const secondNumInput = useRef(null);
+  const [numbers, setNumbers] = useState(numInitalState);
   const symbol = useRef(null);
 
   const symbolHandler = () => {
@@ -26,39 +34,67 @@ function WrittenMath() {
       symbol.current.value = symbol.current.value.slice(0, -1);
     }
   };
-  const numbersHandler = (input) => {
-    if (input.current.value.length > 7) {
-      input.current.value = input.current.value.slice(0, 7);
+  const numbersHandler = (e) => {
+    const regExp = /\D/g;
+    if (!regExp.test(e.value)) {
+      setNumbers({ ...numbers, [e.name]: e.value });
     }
+    setCalculation(initialState);
   };
+
   const submitHandler = () => {
-    const firstNum = Math.max(firstNumInput.current.value, secondNumInput.current.value).toString();
-    const secondNum = Math.min(firstNumInput.current.value, secondNumInput.current.value).toString();
-    const YArray = [Array(firstNum.length + 1).fill(0), [...firstNum].map(Number), [...secondNum].map(Number), []]; // 0 - overflow 1-first number  2-second number 3-Result
+    const firstNum = Math.max(numbers.firstNum, numbers.secondNum).toString();
+    const secondNum = Math.min(numbers.firstNum, numbers.secondNum).toString();
+    const MathArray = [Array(firstNum.length + 1).fill(0), [...firstNum].map(Number), [...secondNum].map(Number), []]; // 0 - overflow 1-first number  2-second number 3-Result
+    while (MathArray[1].length !== MathArray[0].length) MathArray[1].unshift(0);
+    while (MathArray[2].length !== MathArray[0].length) MathArray[2].unshift(0);
     switch (symbol.current.value) {
       case '+':
-        while (YArray[1].length !== YArray[0].length) YArray[1].unshift(0);
-        while (YArray[2].length !== YArray[0].length) YArray[2].unshift(0);
         for (let i = firstNum.length; i >= 0; i--) {
-          const sumNumbers = (YArray[0][i] ?? 0) + (YArray[1][i] ?? 0) + (YArray[2][i] ?? 0);
+          const sumNumbers = (MathArray[0][i] ?? 0) + (MathArray[1][i] ?? 0) + (MathArray[2][i] ?? 0);
           if (sumNumbers >= 10) {
-            YArray[0][i - 1] += 1;
-            YArray[3].unshift(Number(sumNumbers.toString()[1]));
+            MathArray[0][i - 1] += 1;
+            MathArray[3].unshift(Number(sumNumbers.toString()[1]));
           } else {
-            YArray[3].unshift(sumNumbers);
+            MathArray[3].unshift(sumNumbers);
           }
         }
-        if (YArray[0][0] === 0) YArray[0].shift();
-        if (YArray[3][0] === 0) YArray[3].shift();
+        if (MathArray[0][0] === 0) MathArray[0].shift();
+        if (MathArray[3][0] === 0) MathArray[3].shift();
         setCalculation({
+          ...calucation,
           isSubmited: true,
-          result: YArray[3].join(''),
+          result: MathArray[3].join(''),
           operation: 'summary',
-          overfloow: YArray[0].join(''),
+          overfloow: MathArray[0].join(''),
         });
         break;
       case '-':
-        console.log('minus');
+        if (Number(numbers.firstNum) >= Number(numbers.secondNum)) {
+          for (let i = firstNum.length; i >= 0; i--) {
+            let sumNumbers = (MathArray[0][i] ?? 0) + (MathArray[1][i] ?? 0) - (MathArray[2][i] ?? 0);
+            while (sumNumbers < 0) {
+              if (sumNumbers < 0) {
+                MathArray[1][i - 1] -= 1; // left position from number we substract
+                MathArray[0][i] = 10;
+              }
+              sumNumbers = (MathArray[0][i] ?? 0) + (MathArray[1][i] ?? 0) - (MathArray[2][i] ?? 0);
+            }
+            MathArray[0][i] -= MathArray[0][i] > 0 ? Math.abs((firstNum[i - 1] ?? 0) - MathArray[1][i]) : 0;
+            MathArray[3].unshift(sumNumbers);
+          }
+          if (MathArray[0][0] === 0) MathArray[0].shift();
+          while (MathArray[3][0] <= 0) MathArray[3].shift();
+          setCalculation({
+            ...calucation,
+            isSubmited: true,
+            result: MathArray[3].join(''),
+            operation: 'substraction',
+            overfloow: MathArray[0].join(''),
+          });
+        } else {
+          setCalculation({ ...calucation, errorOccuried: true, errorMessage: 'Pierwsza liczba musi być większa!' });
+        }
         break;
       case '/':
       case ':':
@@ -71,6 +107,33 @@ function WrittenMath() {
         break;
       default:
         console.log('different');
+        break;
+    }
+  };
+  // Content depend of calculation
+  const Summary = () => {
+    switch (calucation.operation) {
+      case 'summary':
+        return (
+          <div>
+            <p className="overfloow">{calucation.overfloow}</p>
+            <p>{Math.max(numbers.firstNum, numbers.secondNum).toString()}</p>
+            <p>+{Math.min(numbers.firstNum, numbers.secondNum).toString()}</p>
+            <p>{calucation.result}</p>
+          </div>
+        );
+        break;
+      case 'substraction':
+        return (
+          <div>
+            <p>{calucation.overfloow}</p>
+            <p>{numbers.firstNum}</p>
+            <p>-{numbers.secondNum}</p>
+            <p>{calucation.result}</p>
+          </div>
+        );
+      default:
+        <></>;
         break;
     }
   };
@@ -102,13 +165,14 @@ function WrittenMath() {
         <TopicSubTitleContent>
           <WrittenMathInputsContainer>
             <WrittenMathInput
-              ref={firstNumInput}
-              type="number"
+              type="text"
               placeholder="pierwsza liczba"
               maxLength={7}
               minLength={1}
-              onInput={() => {
-                numbersHandler(firstNumInput);
+              value={numbers.firstNum}
+              name="firstNum"
+              onInput={(e) => {
+                numbersHandler(e.target);
               }}
             ></WrittenMathInput>
             <WrittenMathInput
@@ -120,29 +184,20 @@ function WrittenMath() {
               placeholder="symbol"
             ></WrittenMathInput>
             <WrittenMathInput
-              ref={secondNumInput}
-              type="number"
+              type="text"
               placeholder="druga liczba"
               maxLength={7}
               minLength={1}
-              onInput={() => {
-                numbersHandler(secondNumInput);
+              value={numbers.secondNum}
+              name="secondNum"
+              onInput={(e) => {
+                numbersHandler(e.target);
               }}
             ></WrittenMathInput>
             <WrittenMathInput value="Pokaż rozwiązanie" type="submit" onClick={submitHandler}></WrittenMathInput>
           </WrittenMathInputsContainer>
-          <SummaryContainer>
-            {calucation.isSubmited ? (
-              <>
-                <p>{calucation.overfloow}</p>
-                <p>{Math.max(firstNumInput.current.value, secondNumInput.current.value).toString()}</p>
-                <p>+{Math.min(firstNumInput.current.value, secondNumInput.current.value).toString()}</p>
-                <p>{calucation.result}</p>
-              </>
-            ) : (
-              ''
-            )}
-          </SummaryContainer>
+          {calucation.errorOccuried && <p className="error-message">{calucation.errorMessage}</p>}
+          <SummaryContainer>{calucation.isSubmited ? <Summary></Summary> : ''}</SummaryContainer>
         </TopicSubTitleContent>
       </TopicSubTitleContainer>
     </>
