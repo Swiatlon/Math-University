@@ -19,4 +19,8 @@ a{
     text-decoration: none;
     color: white;
 }
+.error-message{
+    color: red;
+    text-align: center;
+}
 `;
