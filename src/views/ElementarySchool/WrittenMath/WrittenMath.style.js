@@ -36,14 +36,17 @@ export const SummaryContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
   text-align: right;
-  p:nth-child(1) {
+  .overfloow {
     color: lightblue;
     letter-spacing: 0px;
   }
-  p:not(:nth-child(1)) {
+  .number {
     letter-spacing: 2px;
   }
-  p:nth-child(3) {
+  .lastNumber {
     border-bottom: 1px solid black;
+  }
+  .subResultLast {
+    border-top: 1px solid black;
   }
 `;

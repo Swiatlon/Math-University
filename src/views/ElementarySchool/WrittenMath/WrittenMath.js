@@ -46,7 +46,7 @@ function WrittenMath() {
     const secondNum = Math.min(numbers.firstNum, numbers.secondNum).toString();
     const numArray = [[...firstNum].map(Number), [...secondNum].map(Number)];
     let overfloow = [];
-    const result = [];
+    let result = [];
 
     switch (symbol.current.value) {
       case '+':
@@ -108,32 +108,44 @@ function WrittenMath() {
       case 'x':
       case 'X':
       case '*':
-        // if (firstNum * secondNum < 1_000_000) {
-        //   console.log(MathArray);
-        //   const multiplicationResults = [];
-        //   for (let i = MathArray[2].length; i > 0; i--) {
-        //     const temporaryOverflow = [];
-        //     console.log(MathArray);
-        //     console.log(MathArray[2][i]);
-        //     for (let j = firstNum.length; j > 0; j--) {
-        //       const multiplication = (MathArray[2][i] * MathArray[1][j]).toString();
-        //       if (j !== 1) {
-        //         temporaryOverflow.push(multiplication[0]);
-        //         multiplicationResults.unshift(multiplication[1]);
-        //       } else {
-        //         multiplicationResults.unshift(Number(multiplication[1]) + Number(temporaryOverflow[j]));
-        //       }
-        //     }
-        //     // console.log(multiplicationResults);
-        //     // console.log(temporaryOverflow);
-        //   }
-        // } else {
-        //   setCalculation({
-        //     ...calucation,
-        //     errorOccuried: true,
-        //     errorMessage: 'Wynik mnożenia musi byc mniejszy niż milion',
-        //   });
-        // }
+        if (firstNum * secondNum < 1_000_000) {
+          for (let i = numArray[1].length - 1; i >= 0; i--) {
+            const multiplicationResults = [];
+            const multiplicationOverfloow = Array(firstNum.length).fill(0);
+            for (let j = numArray[0].length - 1; j >= 0; j--) {
+              const multiplication = (numArray[1][i] * numArray[0][j] + multiplicationOverfloow[j]).toString();
+              if (j === 0) {
+                multiplicationResults.unshift(Number(multiplication));
+              } else {
+                if (multiplication.length > 1) {
+                  multiplicationOverfloow[j - 1] = Number(multiplication[0]);
+                  multiplicationResults.unshift(Number(multiplication[1]));
+                } else {
+                  multiplicationResults.unshift(Number(multiplication));
+                }
+              }
+            }
+            overfloow.push(multiplicationOverfloow);
+            result.push(multiplicationResults.join(''));
+          }
+          // Summ the results
+          for (let i = 0; i < result.length; i++) {
+            result[i] = result[i] + '0'.repeat(i);
+          }
+          setCalculation({
+            ...calucation,
+            isSubmited: true,
+            result: result,
+            operation: 'multiplying',
+            overfloow: overfloow,
+          });
+        } else {
+          setCalculation({
+            ...calucation,
+            errorOccuried: true,
+            errorMessage: 'Wynik mnożenia musi byc mniejszy niż milion',
+          });
+        }
         break;
       default:
         console.log('different');
@@ -147,21 +159,37 @@ function WrittenMath() {
         return (
           <div>
             <p className="overfloow">{calucation.overfloow}</p>
-            <p>{Math.max(numbers.firstNum, numbers.secondNum).toString()}</p>
-            <p>+{Math.min(numbers.firstNum, numbers.secondNum).toString()}</p>
-            <p>{calucation.result}</p>
+            <p className="number">{Math.max(numbers.firstNum, numbers.secondNum).toString()}</p>
+            <p className="number lastNumber">+{Math.min(numbers.firstNum, numbers.secondNum).toString()}</p>
+            <p className="result">{calucation.result}</p>
           </div>
         );
         break;
       case 'substraction':
         return (
           <div>
-            <p>{calucation.overfloow}</p>
-            <p>{numbers.firstNum}</p>
-            <p>-{numbers.secondNum}</p>
-            <p>{calucation.result}</p>
+            <p className="overfloow">{calucation.overfloow}</p>
+            <p className="number">{numbers.firstNum}</p>
+            <p className="number lastNumber">-{numbers.secondNum}</p>
+            <p className="result">{calucation.result}</p>
           </div>
         );
+        break;
+      case 'multiplying':
+        return (
+          <div>
+            {calucation.overfloow.reverse().map((overflow) => (
+              <p className="overfloow">{overflow}</p>
+            ))}
+            <p className="number">{numbers.firstNum}</p>
+            <p className="number lastNumber">*{numbers.secondNum}</p>
+            {calucation.result.map((result) => (
+              <p className="subResult">{result}</p>
+            ))}
+            <p className="result subResultLast">{calucation.result.map(Number).reduce((a, b) => a + b, 0)}</p>
+          </div>
+        );
+        break;
       default:
         <></>;
         break;
