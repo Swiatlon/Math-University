@@ -73,33 +73,44 @@ function WrittenMath() {
         });
         break;
       case '-':
-        overfloow = Array(firstNum.length + 1).fill(0); // overflow need to be 1 size more
-        for (let i = 1; i <= firstNum.length; i++) {
-          let sumOfData =
-            numArray[0][numArray[0].length - i] +
-            (overfloow[overfloow.length - i] ?? 0) -
-            (numArray[1][numArray[1].length - i] ?? 0);
-          if (sumOfData < 0) {
-            numArray[0][numArray[1].length - i - 1] -= 1;
-            overfloow[overfloow.length - i] += 10;
-            sumOfData += overfloow[overfloow.length - i];
-            result.unshift(Number(sumOfData));
-            overfloow[overfloow.length - i] -= Math.abs(
-              firstNum[firstNum.length - i] - Math.abs(numArray[0][numArray[0].length - i])
-            );
-          } else {
-            result.unshift(sumOfData);
+        if (Number(firstNum) - Number(secondNum) > 0) {
+          overfloow = Array(firstNum.length + 1).fill(0); // overflow need to be 1 size more
+          for (let i = 1; i <= firstNum.length; i++) {
+            let sumOfData =
+              numArray[0][numArray[0].length - i] +
+              (overfloow[overfloow.length - i] ?? 0) -
+              (numArray[1][numArray[1].length - i] ?? 0);
+            if (sumOfData < 0) {
+              numArray[0][numArray[0].length - i - 1] -= 1;
+              overfloow[overfloow.length - i] += 10;
+              sumOfData += overfloow[overfloow.length - i];
+              result.unshift(Number(sumOfData));
+              console.log(firstNum);
+              console.log(numArray[0]);
+              overfloow[overfloow.length - i] -= Math.abs(
+                firstNum[firstNum.length - i] - Math.abs(numArray[0][numArray[0].length - i])
+              );
+            } else {
+              result.unshift(sumOfData);
+            }
           }
+          if (overfloow[0] <= 0) overfloow.shift();
+          while (result[0] <= 0) result.shift();
+          setCalculation({
+            ...calucation,
+            isSubmited: true,
+            result: result.join(''),
+            operation: 'substraction',
+            overfloow: overfloow.join(''),
+          });
+        } else {
+          setCalculation({
+            ...calucation,
+            errorOccuried: true,
+            errorMessage: 'Wynik odejmowania musi byc dodatni!',
+          });
         }
-        if (overfloow[0] <= 0) overfloow.shift();
-        while (result[0] <= 0) result.shift();
-        setCalculation({
-          ...calucation,
-          isSubmited: true,
-          result: result.join(''),
-          operation: 'substraction',
-          overfloow: overfloow.join(''),
-        });
+
         break;
       case '/':
       case ':':
