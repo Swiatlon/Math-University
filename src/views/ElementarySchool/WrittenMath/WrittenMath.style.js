@@ -38,6 +38,7 @@ export const SummaryContainer = styled.div`
   text-align: right;
   p:nth-child(1) {
     color: lightblue;
+    letter-spacing: 0px;
   }
   p:not(:nth-child(1)) {
     letter-spacing: 2px;

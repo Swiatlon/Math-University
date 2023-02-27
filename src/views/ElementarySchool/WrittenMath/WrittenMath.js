@@ -8,7 +8,6 @@ import overview from 'assets/images/writtenMath.jpg';
 import { useRef, useState } from 'react';
 import { SummaryContainer } from './WrittenMath.style';
 function WrittenMath() {
-  console.log('rerender');
   const initialState = {
     isSubmited: false,
     result: null,
@@ -45,56 +44,62 @@ function WrittenMath() {
   const submitHandler = () => {
     const firstNum = Math.max(numbers.firstNum, numbers.secondNum).toString();
     const secondNum = Math.min(numbers.firstNum, numbers.secondNum).toString();
-    const MathArray = [Array(firstNum.length + 1).fill(0), [...firstNum].map(Number), [...secondNum].map(Number), []]; // 0 - overflow 1-first number  2-second number 3-Result
-    while (MathArray[1].length !== MathArray[0].length) MathArray[1].unshift(0);
-    while (MathArray[2].length !== MathArray[0].length) MathArray[2].unshift(0);
+    const numArray = [[...firstNum].map(Number), [...secondNum].map(Number)];
+    let overfloow = [];
+    const result = [];
+
     switch (symbol.current.value) {
       case '+':
-        for (let i = firstNum.length; i >= 0; i--) {
-          const sumNumbers = (MathArray[0][i] ?? 0) + (MathArray[1][i] ?? 0) + (MathArray[2][i] ?? 0);
-          if (sumNumbers >= 10) {
-            MathArray[0][i - 1] += 1;
-            MathArray[3].unshift(Number(sumNumbers.toString()[1]));
+        overfloow = Array(firstNum.length + 1).fill(0); // overflow need to be 1 size more
+        for (let i = 1; i <= firstNum.length; i++) {
+          const sumOfData =
+            numArray[0][numArray[0].length - i] +
+            (overfloow[overfloow.length - i] ?? 0) +
+            (numArray[1][numArray[1].length - i] ?? 0);
+          if (sumOfData >= 10) {
+            overfloow[overfloow.length - i - 1] += 1;
+            result.unshift(Number(sumOfData.toString()[1]));
           } else {
-            MathArray[3].unshift(sumNumbers);
+            result.unshift(sumOfData);
           }
         }
-        if (MathArray[0][0] === 0) MathArray[0].shift();
-        if (MathArray[3][0] === 0) MathArray[3].shift();
+        if (overfloow[0] > 0) result.unshift(overfloow[0]);
         setCalculation({
           ...calucation,
           isSubmited: true,
-          result: MathArray[3].join(''),
+          result: result.join(''),
           operation: 'summary',
-          overfloow: MathArray[0].join(''),
+          overfloow: overfloow.join(''),
         });
         break;
       case '-':
-        if (Number(numbers.firstNum) >= Number(numbers.secondNum)) {
-          for (let i = firstNum.length; i >= 0; i--) {
-            let sumNumbers = (MathArray[0][i] ?? 0) + (MathArray[1][i] ?? 0) - (MathArray[2][i] ?? 0);
-            while (sumNumbers < 0) {
-              if (sumNumbers < 0) {
-                MathArray[1][i - 1] -= 1; // left position from number we substract
-                MathArray[0][i] = 10;
-              }
-              sumNumbers = (MathArray[0][i] ?? 0) + (MathArray[1][i] ?? 0) - (MathArray[2][i] ?? 0);
-            }
-            MathArray[0][i] -= MathArray[0][i] > 0 ? Math.abs((firstNum[i - 1] ?? 0) - MathArray[1][i]) : 0;
-            MathArray[3].unshift(sumNumbers);
+        overfloow = Array(firstNum.length + 1).fill(0); // overflow need to be 1 size more
+        for (let i = 1; i <= firstNum.length; i++) {
+          let sumOfData =
+            numArray[0][numArray[0].length - i] +
+            (overfloow[overfloow.length - i] ?? 0) -
+            (numArray[1][numArray[1].length - i] ?? 0);
+          if (sumOfData < 0) {
+            numArray[0][numArray[1].length - i - 1] -= 1;
+            overfloow[overfloow.length - i] += 10;
+            sumOfData += overfloow[overfloow.length - i];
+            result.unshift(Number(sumOfData));
+            overfloow[overfloow.length - i] -= Math.abs(
+              firstNum[firstNum.length - i] - Math.abs(numArray[0][numArray[0].length - i])
+            );
+          } else {
+            result.unshift(sumOfData);
           }
-          if (MathArray[0][0] === 0) MathArray[0].shift();
-          while (MathArray[3][0] <= 0) MathArray[3].shift();
-          setCalculation({
-            ...calucation,
-            isSubmited: true,
-            result: MathArray[3].join(''),
-            operation: 'substraction',
-            overfloow: MathArray[0].join(''),
-          });
-        } else {
-          setCalculation({ ...calucation, errorOccuried: true, errorMessage: 'Pierwsza liczba musi być większa!' });
         }
+        if (overfloow[0] <= 0) overfloow.shift();
+        while (result[0] <= 0) result.shift();
+        setCalculation({
+          ...calucation,
+          isSubmited: true,
+          result: result.join(''),
+          operation: 'substraction',
+          overfloow: overfloow.join(''),
+        });
         break;
       case '/':
       case ':':
@@ -103,7 +108,32 @@ function WrittenMath() {
       case 'x':
       case 'X':
       case '*':
-        console.log('mnozenie');
+        // if (firstNum * secondNum < 1_000_000) {
+        //   console.log(MathArray);
+        //   const multiplicationResults = [];
+        //   for (let i = MathArray[2].length; i > 0; i--) {
+        //     const temporaryOverflow = [];
+        //     console.log(MathArray);
+        //     console.log(MathArray[2][i]);
+        //     for (let j = firstNum.length; j > 0; j--) {
+        //       const multiplication = (MathArray[2][i] * MathArray[1][j]).toString();
+        //       if (j !== 1) {
+        //         temporaryOverflow.push(multiplication[0]);
+        //         multiplicationResults.unshift(multiplication[1]);
+        //       } else {
+        //         multiplicationResults.unshift(Number(multiplication[1]) + Number(temporaryOverflow[j]));
+        //       }
+        //     }
+        //     // console.log(multiplicationResults);
+        //     // console.log(temporaryOverflow);
+        //   }
+        // } else {
+        //   setCalculation({
+        //     ...calucation,
+        //     errorOccuried: true,
+        //     errorMessage: 'Wynik mnożenia musi byc mniejszy niż milion',
+        //   });
+        // }
         break;
       default:
         console.log('different');

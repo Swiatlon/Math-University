@@ -22,5 +22,7 @@ a{
 .error-message{
     color: red;
     text-align: center;
+    font-weight: bold;
+    margin-top: 14px;
 }
 `;
