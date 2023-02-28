@@ -46,6 +46,11 @@ export const SummaryContainer = styled.div`
   .lastNumber {
     border-bottom: 1px solid black;
   }
+  .underflow {
+    border-bottom: 1px solid black;
+    text-align: left;
+  }
+
   .subResultLast {
     border-top: 1px solid black;
   }
