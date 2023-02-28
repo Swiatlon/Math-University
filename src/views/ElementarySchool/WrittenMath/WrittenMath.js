@@ -116,7 +116,7 @@ function WrittenMath() {
       case ':':
         firstNum = numbers.firstNum;
         secondNum = numbers.secondNum;
-        if (firstNum > secondNum) {
+        if (Number(firstNum) > Number(secondNum)) {
           numArray = [[...firstNum].map(String), [...secondNum].map(String)];
           let partWorkingOn = '';
           let index = 0;
