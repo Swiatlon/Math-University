@@ -5,7 +5,7 @@ export const SubMenuStyled = styled.ul`
   position: absolute;
   list-style: none;
   left: 100.2%;
-  top: -1.5px;
+  top: -1px;
   min-width: max-content;
   border: 1.5px solid black;
   z-index: 100;
@@ -13,7 +13,8 @@ export const SubMenuStyled = styled.ul`
   &&.firstSubMenu {
     left: -30% !important;
     top: initial !important;
-    margin-top: 55px;
+    margin-top: 56px;
+    /* top: 0px; */
   }
   @media (max-width: ${size.laptop}) {
     margin-top: 0px !important;
