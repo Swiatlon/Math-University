@@ -16,8 +16,8 @@ export const menuArch = [
     title: 'Matematyka',
     submenu: [
       {
-
         title: 'Szkoła Podstawowa',
+        submenu: [{ title: 'Działania', submenu: [{ title: 'Działania pisemne' }] }],
       },
       {
         title: 'Szkoła Średnia',

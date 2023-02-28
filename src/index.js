@@ -7,7 +7,8 @@ import ErrorPage from 'views/ErrorPage/ErrorPage';
 import Home from 'views/Home/Home';
 import SchoolLayout from 'layouts/SchoolLayout';
 import Matrices from 'views/University/Matrices/Matrices';
-import ComplexNumbers from 'views/University/Complex Numbers/ComplexNumbers';
+import ComplexNumbers from 'views/University/ComplexNumbers/ComplexNumbers';
+import WrittenMath from 'views/ElementarySchool/WrittenMath/WrittenMath';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -41,6 +42,25 @@ const router = createBrowserRouter([
                     element: <Navigate to="/error-page" />,
                   },
                   { path: 'Liczby-Zespolone', element: <ComplexNumbers /> },
+                ],
+              },
+            ],
+          },
+          {
+            path: 'Szkoła-Podstawowa',
+            children: [
+              {
+                index: true,
+                element: <Navigate to="/error-page" />,
+              },
+              {
+                path: 'Działania',
+                children: [
+                  {
+                    index: true,
+                    element: <Navigate to="/error-page" />,
+                  },
+                  { path: 'Działania-pisemne', element: <WrittenMath /> },
                 ],
               },
             ],

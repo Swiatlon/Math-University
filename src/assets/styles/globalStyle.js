@@ -19,6 +19,12 @@ a{
     text-decoration: none;
     color: white;
 }
+
+.error-message{
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 14px;
 .hide{
     display: none;
 }
