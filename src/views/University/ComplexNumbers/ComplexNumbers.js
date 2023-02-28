@@ -3,12 +3,10 @@ import { TopicTitle } from 'components/atoms/TopicTitle/TopicTitle.style';
 import { TopicSubTitleContent } from 'components/atoms/TopicSubTitleContent/TopicSubTitleContent.style';
 import TopicSubTitleContainer from 'components/molecules/TopicSubTitleContainer/TopicSubTitleContainer';
 import { ComplexNumbersTable } from './ComplexNumbers.style';
-import { ComplexNumbersCoordinate } from './ComplexNumbers.style';
 import overview from 'assets/images/ComplexNumbers.jpg';
 import { ComplexNumberInput } from './ComplexNumbers.style';
-import { useRef, useEffect, useState } from 'react';
-import MathCoordinateSystem from 'helpers/MathCoordinateSystem';
-import math, { evaluate, sqrt, complex, re, phi } from 'mathjs';
+import { useRef, useState } from 'react';
+import { evaluate, complex } from 'mathjs';
 function ComplexNumbers() {
   const intitialResultState = {
     result: '',
@@ -83,7 +81,7 @@ function ComplexNumbers() {
 
       <TopicSubTitleContainer subTitle="Wytłumaczenie tematu:">
         <TopicSubTitleContent>
-          <img src={overview} alt="overview" className="center-img" />
+          <img src={overview} alt="overview" />
         </TopicSubTitleContent>
       </TopicSubTitleContainer>
 
