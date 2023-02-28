@@ -116,48 +116,56 @@ function WrittenMath() {
       case ':':
         firstNum = numbers.firstNum;
         secondNum = numbers.secondNum;
-        numArray = [[...firstNum].map(String), [...secondNum].map(String)];
-        let partWorkingOn = '';
-        let index = 0;
-        let restOfDivision;
-        let underfloow = [];
-        let arrPartsWorkingOn = [];
-        while (index < firstNum.length) {
-          for (index; index <= firstNum.length - 1; ) {
-            if (index < secondNum.length - 1) {
-              partWorkingOn = numArray[0].slice(0, index + 1).reduce((a, b) => a + b);
-            } else {
-              partWorkingOn += numArray[0].slice(index, index + 1).reduce((a, b) => a + b);
+        if (firstNum > secondNum) {
+          numArray = [[...firstNum].map(String), [...secondNum].map(String)];
+          let partWorkingOn = '';
+          let index = 0;
+          let restOfDivision;
+          let underfloow = [];
+          let arrPartsWorkingOn = [];
+          while (index < firstNum.length) {
+            for (index; index <= firstNum.length - 1; ) {
+              if (index < secondNum.length - 1) {
+                partWorkingOn = numArray[0].slice(0, index + 1).reduce((a, b) => a + b);
+              } else {
+                partWorkingOn += numArray[0].slice(index, index + 1).reduce((a, b) => a + b);
+              }
+              index++;
+              if (Number(partWorkingOn) >= Number(secondNum)) {
+                break;
+              }
             }
-            index++;
-            if (Number(partWorkingOn) >= Number(secondNum)) {
-              break;
+            restOfDivision = partWorkingOn % secondNum;
+            arrPartsWorkingOn.push(Number(partWorkingOn));
+            result.push((partWorkingOn - restOfDivision) / secondNum);
+            underfloow.push(Math.floor(partWorkingOn - restOfDivision));
+            partWorkingOn = String(restOfDivision);
+            if (index == firstNum.length) {
+              arrPartsWorkingOn.push(restOfDivision);
+              if (restOfDivision > 0) result.push(restOfDivision / secondNum);
             }
           }
-          restOfDivision = partWorkingOn % secondNum;
-          arrPartsWorkingOn.push(Number(partWorkingOn));
-          result.push((partWorkingOn - restOfDivision) / secondNum);
-          underfloow.push(Math.floor(partWorkingOn - restOfDivision));
-          partWorkingOn = String(restOfDivision);
-          if (index == firstNum.length) {
-            arrPartsWorkingOn.push(restOfDivision);
-            if (restOfDivision > 0) result.push(restOfDivision / secondNum);
-          }
+          //We get the result to format "Number,decimal"
+          let endStringResult = '';
+          result.forEach((item) => {
+            item = item.toString();
+            if (Number(item) >= 1) endStringResult += item;
+            else endStringResult += `,${item.substring(item.indexOf('.') + 1, item.length)}`;
+          });
+          setCalculation({
+            ...calucation,
+            isSubmited: true,
+            result: [arrPartsWorkingOn, endStringResult],
+            operation: 'division',
+            overfloow: underfloow,
+          });
+        } else {
+          setCalculation({
+            ...calucation,
+            errorOccuried: true,
+            errorMessage: 'Pierwsza liczba musi być wieksza od drugiej!',
+          });
         }
-        //We get the result to format "Number,decimal"
-        let endStringResult = '';
-        result.forEach((item) => {
-          item = item.toString();
-          if (Number(item) >= 1) endStringResult += item;
-          else endStringResult += `,${item.substring(item.indexOf('.') + 1, item.length)}`;
-        });
-        setCalculation({
-          ...calucation,
-          isSubmited: true,
-          result: [arrPartsWorkingOn, endStringResult],
-          operation: 'division',
-          overfloow: underfloow,
-        });
         break;
       case 'x':
       case 'X':
