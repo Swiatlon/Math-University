@@ -8,6 +8,7 @@ import { Icon } from 'components/atoms/Icon/Icon.style';
 import hamburgerImage from 'assets/images/icons/hamburger.svg';
 import { useState } from 'react';
 
+
 function Navigation() {
   const [hidden, setHidden] = useState(false);
   const menuRef = useRef(null);
