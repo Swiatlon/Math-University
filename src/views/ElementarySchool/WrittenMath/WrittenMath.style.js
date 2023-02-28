@@ -19,13 +19,14 @@ export const WrittenMathInputsContainer = styled.div`
     background: white;
     text-decoration: none;
     border: 1px solid gray;
+    width: min-content;
   }
   @media (max-width: 700px) {
     display: grid;
     grid-template-columns: 1fr;
     place-items: center;
     input {
-      width: 250px;
+      width: 80%;
     }
   }
 `;
