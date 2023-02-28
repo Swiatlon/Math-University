@@ -35,23 +35,12 @@ const router = createBrowserRouter([
                 element: <Navigate to="/error-page" />,
               },
               {
-                path: 'Statystyka-Opisowa',
-                children: [
-                  {
-                    index: true,
-                    element: <Navigate to="/error-page" />,
-                  },
-                  { path: 'Spearmaan', element: <Matrices /> },
-                ],
-              },
-              {
                 path: 'Algebra-Liniowa',
                 children: [
                   {
                     index: true,
                     element: <Navigate to="/error-page" />,
                   },
-                  { path: 'Macierze', element: <Matrices /> },
                   { path: 'Liczby-Zespolone', element: <ComplexNumbers /> },
                 ],
               },

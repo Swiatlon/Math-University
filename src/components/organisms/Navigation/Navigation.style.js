@@ -25,6 +25,7 @@ export const Menu = styled.ul`
     margin-right: 40px;
     margin-top: 3em;
     display: none;
+    transition: 1s all;
   }
   * {
     cursor: pointer;
@@ -52,12 +53,14 @@ export const Nav = styled.nav`
   width: 100vw;
   background: #0c2f73;
   color: white;
-  position: absolute;
+  position: fixed;
   display: grid;
   transition: 1s height;
   height: 150px;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
+  z-index: 1000;
+  scroll-behavior: smooth;
   @media (max-width: ${size.laptop}) {
     && {
       overflow-y: scroll;
@@ -65,6 +68,7 @@ export const Nav = styled.nav`
     &&.navHide {
       //Animation
       height: 140px;
+      overflow-y: hidden !important;
       .logo {
         margin-top: 10px;
       }

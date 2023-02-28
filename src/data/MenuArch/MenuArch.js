@@ -3,7 +3,10 @@ export const menuArch = [
     title: 'O nas(Coming Soon!)',
   },
   {
-    title: 'Informatyka(Coming Soon!)',
+
+    title: 'Informatyka',
+
+
   },
   {
     title: 'logo',
@@ -17,7 +20,8 @@ export const menuArch = [
         submenu: [{ title: 'Działania', submenu: [{ title: 'Działania pisemne' }] }],
       },
       {
-        title: 'Szkoła Średnia(Coming Soon!)',
+        title: 'Szkoła Średnia',
+
       },
       {
         title: 'Studia',

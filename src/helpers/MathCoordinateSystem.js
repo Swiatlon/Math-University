@@ -27,12 +27,12 @@ export default class MathCoordinateSystem {
   #drawNumbers() {
     const amountOfXNumbers = this.width / this.sizeOfGrid / 2;
     const amountOfYNumbers = this.height / this.sizeOfGrid / 2;
-    this.ctx.font = 'bold 16px sans-serif';
+    this.ctx.font = `bold ${(this.width + this.height) / 2 / 28}px sans-serif`;
     this.ctx.textAlign = 'center';
     for (let i = 1; i < amountOfXNumbers; i++) {
       // X => Line
-      this.ctx.fillText(-i, this.cartesianPoint(-i).x, this.cartesianPoint(0, -0.4).y); // Negative Numbers
-      this.ctx.fillText(i, this.cartesianPoint(i).x, this.cartesianPoint(0, -0.4).y); // Positive Numbers
+      this.ctx.fillText(-i, this.cartesianPoint(-i).x, this.cartesianPoint(0, -0.6).y); // Negative Numbers
+      this.ctx.fillText(i, this.cartesianPoint(i).x, this.cartesianPoint(0, -0.6).y); // Positive Numbers
     }
 
     this.ctx.textBaseline = 'middle';
