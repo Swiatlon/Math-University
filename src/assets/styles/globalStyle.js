@@ -25,6 +25,7 @@ a{
     text-align: center;
     font-weight: bold;
     margin-top: 14px;
+}
 .hide{
     display: none;
 }
