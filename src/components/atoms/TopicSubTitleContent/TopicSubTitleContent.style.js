@@ -12,8 +12,7 @@ export const TopicSubTitleContent = styled.div`
     text-align: center;
     padding-bottom: 10px;
   }
-  .center-img {
+  img {
     display: flex;
   }
-  /* display: flex; */
 `;
