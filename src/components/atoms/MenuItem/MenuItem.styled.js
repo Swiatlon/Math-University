@@ -26,7 +26,7 @@ export const LiItem = styled.li`
   margin-right: 30px;
   padding-top: 20px;
   padding-bottom: 20px;
-  border-bottom: 1.5px solid black;
+  border-bottom: 1px solid black;
   display: block;
   font-size: 16px;
   text-indent: 10px;
