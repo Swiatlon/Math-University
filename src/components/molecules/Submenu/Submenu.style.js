@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { size } from 'assets/styles/mediaQueries.style';
-const subMenuColors = ['#0A47C2', '#1248B5', '#0A47C2', '#1248B5'];
+const subMenuColors = ['#1e3a8a', '#1e40af', '#1d4ed8', '#2563eb'];
 export const SubMenuStyled = styled.ul`
   position: absolute;
   list-style: none;
