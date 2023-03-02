@@ -22,6 +22,7 @@ export const UnitsBox = styled.div`
     height: 100%;
     max-width: 70px;
     font-size: 18px;
+    padding-left: 5px;
     right: 0;
     margin-top: 0px !important;
   }

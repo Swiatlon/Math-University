@@ -1,11 +1,14 @@
 import React from 'react';
 import { SquareContainer } from './Square.style';
 import ResultTable from '../ResultTable/ResultTable';
-import InputWithUnits from 'components/atoms/InputWithUnits/InputWithUnits';
+import InputWithUnits from 'components/molecules/InputWithUnits/InputWithUnits';
 import { useState, useRef } from 'react';
-import { SubmitContainer } from './Square.style';
+import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';
 import Units from 'components/atoms/Units/Units';
-import { evaluate, unit } from 'mathjs';
+import { unit } from 'mathjs';
+import SelectList from 'components/atoms/SelectList/SelectList';
+import { GeometricButton } from 'components/atoms/GeometricButton/GeometricButton.style';
+import { transformToDecIfNeeded } from 'helpers/Helpers';
 // Okrag wpisany i opisany TODO
 // Adding sqrt
 function Square() {
@@ -39,7 +42,7 @@ function Square() {
     //Values
     let side;
     const data = Number(inputValue);
-    switch (userChoice) {
+    switch (userChoice.toLowerCase()) {
       case 'bok':
         side = data;
         break;
@@ -66,28 +69,22 @@ function Square() {
     }
   };
 
-  function transformToDecIfNeeded(number) {
-    if (number.toString().includes('.')) return number.toFixed(6);
-    else return number;
-  }
-
   return (
     <SquareContainer>
-      <select onChange={handleSelectChange} value={userChoice}>
-        <option value="bok">Bok</option>
-        <option value="pole">Pole</option>
-        <option value="obwód">Obwód</option>
-        <option value="przekątna">Przekątna</option>
-      </select>
+      <SelectList
+        items={['Bok', 'Pole', 'Obwód', 'Przekątna']}
+        onChange={handleSelectChange}
+        value={userChoice}
+      ></SelectList>
       <InputWithUnits
-        placeholder={userChoice}
+        placeholder={'Podaj: ' + userChoice}
         value={inputValue}
         onChange={handleInputChange}
         maxLength={8}
         unitRef={userUnitsRef}
       ></InputWithUnits>
       <SubmitContainer>
-        <button onClick={mathCalculations}>Policz</button>
+        <GeometricButton onClick={mathCalculations}>Policz</GeometricButton>
         <Units unitRef={resultUnitsRef}></Units>
       </SubmitContainer>
       <ResultTable>

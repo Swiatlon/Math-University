@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputNumberStyled } from './InputWithUnits.style';
 import { UnitsBox } from './InputWithUnits.style';
-import Units from '../Units/Units';
+import Units from '../../atoms/Units/Units';
 function InputWithUnits({ value, onChange, placeholder, hasNegativeNumbers, onClick, maxLength, unitRef }) {
   return (
     <UnitsBox>
