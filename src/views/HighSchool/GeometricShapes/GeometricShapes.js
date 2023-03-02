@@ -23,7 +23,6 @@ import Rhomb from 'components/molecules/Rhomb/Rhomb';
 import Circle from 'components/molecules/Circle/Circle';
 import CircleSector from 'components/molecules/CircleSector/CircleSector';
 function GeometricShapes() {
-  const initialState = 'None';
   const [choosedShape, setChoosedShape] = useState(null);
   // Szesciokat // Osmiokat // WIELOKAT SUMA KATOW ITD // DELTOID
   const elements = [
