@@ -1,9 +1,7 @@
-import React from 'react'
-
+import React from 'react';
+import { CircleContainer } from './Circle.style';
 function Circle() {
-  return (
-    <div>Circle</div>
-  )
+  return <CircleContainer>Circles</CircleContainer>;
 }
 
-export default Circle
+export default Circle;
