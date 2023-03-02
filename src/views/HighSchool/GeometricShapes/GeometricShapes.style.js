@@ -20,6 +20,7 @@ export const FieldBox = styled.div`
   position: relative;
   transition: 1s transform;
   box-shadow: 2px 2px 4px #000000;
+  height: max-content;
   &&:hover {
     transform: scale(1.1);
     box-shadow: 2px 2px 4px #0c2f73;
