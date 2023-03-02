@@ -3,11 +3,11 @@ import React from 'react';
 function Units({ unitRef }) {
   return (
     <select ref={unitRef}>
-      <option value="mm">MM</option>
-      <option value="cm">CM</option>
-      <option value="dm">DM</option>
-      <option value="m">M</option>
-      <option value="km">KM</option>
+      <option value="mm">mm</option>
+      <option value="cm">cm</option>
+      <option value="dm">dm</option>
+      <option value="m">m</option>
+      <option value="km">km</option>
     </select>
   );
 }
