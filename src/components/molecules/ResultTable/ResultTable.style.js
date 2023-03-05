@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const ResultTableContainer = styled.div`
   width: 100%;
+  margin-top: 20px;
   border-bottom: 1px solid black;
   margin-bottom: 20px;
   font-size: 16px;
