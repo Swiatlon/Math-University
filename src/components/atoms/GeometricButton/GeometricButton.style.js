@@ -11,6 +11,7 @@ export const GeometricButton = styled.button`
 export const SubmitContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
+  margin-top: 20px;
   select {
     margin-top: 0px;
     padding-bottom: 1px;
