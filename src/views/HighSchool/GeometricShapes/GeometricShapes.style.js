@@ -7,10 +7,12 @@ export const FieldsBoxesContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
   grid-gap: 15px;
+  padding-top: 20px;
+  padding-bottom: 25px;
 `;
 
 export const FieldBox = styled.div`
-  width: calc(32% - 10px);
+  width: calc(${({ elemPerRow }) => 100 / elemPerRow - 1}% - 10px);
   height: 150px;
   display: grid;
   justify-content: center;

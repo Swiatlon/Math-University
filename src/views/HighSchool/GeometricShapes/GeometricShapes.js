@@ -28,7 +28,7 @@ function GeometricShapes() {
   const elements = [
     { name: 'Kwadrat', url: squareImg },
     { name: 'Prostokąt', url: rectangleImg },
-    { name: 'Trójkat', url: triangleImg },
+    { name: 'Trójkąt', url: triangleImg },
     { name: 'Trapez', url: trapezeImg },
     { name: 'Równoległobok', url: parallelogramImg },
     { name: 'Romb', url: rhombImg },
@@ -84,6 +84,7 @@ function GeometricShapes() {
             {elements.map((box) => (
               <FieldBox
                 key={box.name}
+                elemPerRow={3}
                 onClick={() => {
                   setChoosedShape(box.name);
                 }}
