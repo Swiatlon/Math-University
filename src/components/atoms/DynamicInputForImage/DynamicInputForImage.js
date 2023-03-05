@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { DynamicInputBox } from './DynamicInputForImage.style';
 
-const DynamicInputForImage = forwardRef(({ x, y, value }, ref) => {
+const DynamicInputForImage = forwardRef(({ x, y, value, placeholder }, ref) => {
   function handleInputChanges(event) {
     const inputValue = event.target.value;
     if (/^[0-9]{0,3}$/.test(inputValue)) {
@@ -12,7 +12,7 @@ const DynamicInputForImage = forwardRef(({ x, y, value }, ref) => {
   }
   return (
     <DynamicInputBox>
-      <input placeholder={value} type="text" ref={ref} onChange={handleInputChanges} x={x} y={y} maxLength={3} />
+      <input placeholder={placeholder} type="text" ref={ref} onChange={handleInputChanges} x={x} y={y} maxLength={3} />
     </DynamicInputBox>
   );
 });
