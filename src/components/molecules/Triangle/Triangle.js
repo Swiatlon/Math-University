@@ -14,34 +14,71 @@ import ResultTable from '../ResultTable/ResultTable';
 import { useRef } from 'react';
 import { ReactComponent as EditableSVGText } from 'assets/images/GeometricShapes/triangleBasic.svg';
 import DynamicInputForImage from 'components/atoms/DynamicInputForImage/DynamicInputForImage';
+import { wrongDataAlert } from 'helpers/Swal';
+import InputWithUnits from '../InputWithUnits/InputWithUnits';
 
 function Triangle() {
-  const inputsRefs = useRef([]);
+  const imagesInputsRefs = useRef([]);
   const containerRef = useRef(null);
 
   const [inputsToRender, setInputsToRender] = useState([]);
   const [choosedTriangleVersion, setChoosedTriangleVersion] = useState(null);
+  const [fieldInput, setFieldInput] = useState(null);
+  const [circuitInput, setCircuitField] = useState(null);
+
+  const handleFieldChange = (e) => {
+    if (/^[\d\b.,]*$/.test(e.target.value)) {
+      setFieldInput(e.target.value);
+    }
+  };
+
+  const handleCircuitChange = (e) => {
+    if (/^[\d\b.,]*$/.test(e.target.value)) {
+      setCircuitField(e.target.value);
+    }
+  };
 
   const creatingInputsOnText = (event) => {
     if (event.target.localName === 'tspan') {
       const { offsetX, offsetY } = event.nativeEvent;
-      const x = offsetX - 35;
-      const y = offsetY - 20;
-      const text = { value: event.target.innerHTML, x, y };
+      const x = offsetX - 15;
+      const y = offsetY - 15;
+      const text = { value: event.target.innerHTML, x, y, placeholder: event.target.innerHTML };
       const arrayContainThisItem = inputsToRender.some((item) => {
         return text.value === item.value;
       });
       if (!arrayContainThisItem) {
         const newInputRef = React.createRef();
-        inputsRefs.current.push(newInputRef);
+        imagesInputsRefs.current.push(newInputRef);
         setInputsToRender([...inputsToRender, text]);
       }
     }
   };
 
   const mathCalculations = () => {
-    const inputsValues = inputsRefs.current.map((ref) => ref.current.value);
-    console.log(inputsValues);
+    const inputsValues = imagesInputsRefs.current.map((ref) => {
+      return {
+        name: ref.current?.attributes[0]?.value, // placeholder
+        value: ref.current.value,
+      };
+    });
+    const isDataValid = inputsValues.every((item) => /^[0-9]{0,3}$/.test(item?.value));
+    if (!isDataValid) wrongDataAlert();
+    else {
+      const a = 0;
+      const b = 0;
+      const c = 0;
+      const alfa = 0;
+      const beta = 0;
+      const gamma = 0;
+      const ha = 0;
+      const hb = 0;
+      const hc = 0;
+      const r = 0;
+      const field = fieldInput;
+      const circuit = circuitInput;
+    }
+    // All the calculations
   };
 
   const elements = [
@@ -51,7 +88,7 @@ function Triangle() {
     { name: 'Zwykły', url: Basic },
   ];
 
-  const shapes = () => {
+  const shape = () => {
     switch (choosedTriangleVersion) {
       case 'Zwykły':
         return <EditableSVGText onClick={creatingInputsOnText}> </EditableSVGText>;
@@ -88,28 +125,51 @@ function Triangle() {
       </FieldsBoxesContainer>
 
       {choosedTriangleVersion !== null ? (
-        <div style={{ position: 'relative' }}>
-          {shapes()}
-          {inputsToRender.map((item, index) => (
-            <DynamicInputForImage x={item.x} y={item.y} ref={inputsRefs.current[index]} />
-          ))}
-        </div>
+        <>
+          <h2>Podaj wszystkie wartości które znasz</h2>
+          <div style={{ position: 'relative' }}>
+            {shape()}
+            {inputsToRender.map((item, index) => (
+              <DynamicInputForImage
+                key={index}
+                x={item.x}
+                y={item.y}
+                ref={imagesInputsRefs.current[index]}
+                placeholder={item.placeholder}
+              />
+            ))}
+          </div>
+
+          <InputWithUnits
+            placeholder={'Podaj pole: '}
+            value={fieldInput}
+            onChange={handleFieldChange}
+            maxLength={8}
+            noUnits={true}
+          ></InputWithUnits>
+          <InputWithUnits
+            placeholder={'Podaj obwód: '}
+            value={circuitInput}
+            onChange={handleCircuitChange}
+            maxLength={8}
+            noUnits={true}
+          ></InputWithUnits>
+          <SubmitContainer>
+            <GeometricButton onClick={mathCalculations}>Policz</GeometricButton>
+          </SubmitContainer>
+
+          <ResultTable>
+            <div>
+              Bok:<p>{0}</p>
+            </div>
+            <div>
+              Pole: <p>{0}</p>
+            </div>
+          </ResultTable>
+        </>
       ) : (
         ''
       )}
-
-      <SubmitContainer>
-        <GeometricButton onClick={mathCalculations}>Policz</GeometricButton>
-      </SubmitContainer>
-
-      <ResultTable>
-        <div>
-          Bok:<p>{0}</p>
-        </div>
-        <div>
-          Pole: <p>{0}</p>
-        </div>
-      </ResultTable>
     </TriangleContainer>
   );
 }
