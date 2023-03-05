@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { size } from 'assets/styles/mediaQueries.style';
 export const DynamicInputBox = styled.div`
   position: absolute;
   left: ${(props) => props.children.props.x}px;
@@ -17,5 +17,11 @@ export const DynamicInputBox = styled.div`
   input:focus {
     border: 1px solid yellow;
     background: white;
+  }
+  @media (max-width: ${size.tablet}) {
+    input {
+      font-size: 16px;
+      max-width: 30px;
+    }
   }
 `;
