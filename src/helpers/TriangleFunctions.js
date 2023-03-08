@@ -1,13 +1,16 @@
+import { transformToDecIfNeeded } from './Helpers';
 export default class TriangleFunctions {
   static gettingThirdSide({ firstSide, secondSide, angleBettwen, circuit }) {
     if (firstSide && secondSide) {
       if (circuit) return this.sideFromCircuit(firstSide, secondSide, circuit);
-      else return this.cosineLaw(firstSide, secondSide, angleBettwen);
+      else if (angleBettwen) return this.cosineLaw(firstSide, secondSide, angleBettwen);
     }
   }
 
   static sideFromCircuit(secondSide, thirdSide, circuit) {
-    return circuit - (secondSide + thirdSide);
+    if (secondSide && thirdSide && circuit) {
+      return circuit - (secondSide + thirdSide);
+    }
   }
 
   static sideFromField(field, sideHeight, sideAngle, secondSide, secondSideAngle, thirdSide, thirdSideAngle, r, R) {
@@ -41,9 +44,11 @@ export default class TriangleFunctions {
   }
 
   static cosineLaw(secondSide, thirdSide, angleBettwen) {
-    return Math.sqrt(
-      Math.pow(secondSide, 2) + Math.pow(thirdSide, 2) - 2 * secondSide * thirdSide * Math.cos(angleBettwen)
-    );
+    if (secondSide && thirdSide && angleBettwen) {
+      return Math.sqrt(
+        Math.pow(secondSide, 2) + Math.pow(thirdSide, 2) - 2 * secondSide * thirdSide * Math.cos(angleBettwen)
+      );
+    }
   }
 
   static angleFromTwoAngles(firstAngle, secondAngle) {
@@ -86,10 +91,10 @@ export default class TriangleFunctions {
     R
   ) {
     const result =
-      TriangleFunctions.sideFromCircuit(secondSide, thirdSide, circuit) ||
-      TriangleFunctions.cosineLaw(secondSide, thirdSide, firstSideAngle) ||
-      TriangleFunctions.sinusLaw(firstSideAngle, secondSide, secondSideAngle, thirdSide, thirdSideAngle, R) ||
-      TriangleFunctions.sideFromField(
+      this.sideFromCircuit(secondSide, thirdSide, circuit) ||
+      this.cosineLaw(secondSide, thirdSide, firstSideAngle) ||
+      this.sinusLaw(firstSideAngle, secondSide, secondSideAngle, thirdSide, thirdSideAngle, R) ||
+      this.sideFromField(
         field,
         firstSideHeight,
         firstSideAngle,
@@ -100,7 +105,7 @@ export default class TriangleFunctions {
         r,
         R
       );
-    return result;
+    return transformToDecIfNeeded(result, 3);
   }
 
   static gettingAngleAllFunctions(firstSide, secondSide, thirdSide, secondSideAngle, thirdSideAngle) {
@@ -121,12 +126,17 @@ export default class TriangleFunctions {
     field
   ) {
     if (field) {
-      if (side && secondSide && thirdSide) return (side * secondSide * thirdSide) / field / 4;
-      else if (firstSideAngle && secondSideAngle && thirdSideAngle) {
+      if (side && secondSide && thirdSide) {
+        return (side * secondSide * thirdSide) / (field * 4);
+      } else if (firstSideAngle && secondSideAngle && thirdSideAngle) {
         return Math.sqrt(field / 2 / (firstSideAngle * secondSideAngle * thirdSideAngle));
       }
     } else if (side && firstSideAngle) {
-      return side / firstSideAngle / 2;
+      return side / (Math.sin(firstSideAngle) * 2);
+    } else if (secondSide && secondSideAngle) {
+      return secondSide / (Math.sin(secondSideAngle) * 2);
+    } else if (thirdSide && thirdSideAngle) {
+      return thirdSide / (Math.sin(thirdSideAngle) * 2);
     }
   }
 
@@ -137,7 +147,9 @@ export default class TriangleFunctions {
   }
 
   static gettingCircuit(firstSide, secondSide, thirdSide) {
-    return firstSide + secondSide + thirdSide;
+    if (firstSide && secondSide && thirdSide) {
+      return firstSide + secondSide + thirdSide;
+    }
   }
 
   static gettingField(
@@ -153,7 +165,7 @@ export default class TriangleFunctions {
     r,
     R
   ) {
-    if ((firstSide, secondSide, thirdSide)) {
+    if (firstSide && secondSide && thirdSide) {
       let p = (firstSide + secondSide + thirdSide) / 2;
       return Math.sqrt(p * (p - firstSide) * (p - secondSide) * (p - thirdSide));
     } else if (firstSideAngle && secondSideAngle && thirdSideAngle) {
