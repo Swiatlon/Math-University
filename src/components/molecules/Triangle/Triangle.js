@@ -15,21 +15,43 @@ import DynamicInputForImage from 'components/atoms/DynamicInputForImage/DynamicI
 import { wrongDataAlert } from 'helpers/Swal';
 import InputWithUnits from '../InputWithUnits/InputWithUnits';
 import TriangleFunctions from 'helpers/TriangleFunctions';
-import { countUndefined } from 'helpers/Helpers';
+import { countUndefined, transformToDecIfNeeded } from 'helpers/Helpers';
+import { radToDeg } from 'helpers/Helpers';
+import { degToRad } from 'helpers/Helpers';
 
 function Triangle() {
+  const initialResultState = {
+    a: '',
+    b: '',
+    c: '',
+    alfa: '',
+    beta: '',
+    gamma: '',
+    ha: '',
+    hb: '',
+    hc: '',
+    r: '',
+    circuit: '',
+    R: '',
+    Field: '',
+  };
+
   const imagesInputsRefs = useRef([]);
 
   const [inputsToRender, setInputsToRender] = useState([]);
   const [choosedTriangleVersion, setChoosedTriangleVersion] = useState(null);
-  const [RVal, setRVal] = useState('');
-  const [fieldInput, setFieldInput] = useState('');
-  const [circuitInput, setCircuitInput] = useState('');
+  const [preResultInputs, setpreResultInputs] = useState({
+    circuitInput: '',
+    fieldInput: '',
+    RVal: '',
+  });
+  const [result, setResult] = useState(initialResultState);
 
-  const handleChange = (e, setter) => {
-    if (/^[\d\b.,]*$/.test(e.target.value)) {
-      setter(e.target.value);
-    }
+  const handleChange = (e, key) => {
+    setpreResultInputs({
+      ...preResultInputs,
+      [key]: e.target.value,
+    });
   };
 
   const creatingInputsOnText = (event) => {
@@ -49,74 +71,77 @@ function Triangle() {
     }
   };
 
-  const calculatingSite = (a, b, c, alfa, beta, gamma, ha, hb, hc, r, circuit, field, R) => {
+  const resetData = () => {
+    setInputsToRender([]);
+    setResult(initialResultState);
+    imagesInputsRefs.current = [];
+  };
+
+  const dataCalculation = (a, b, c, alfa, beta, gamma, ha, hb, hc, r, circuit, field, R) => {
     // Degree -> radians cause of tryg functions like sin/cos/tg
-    gamma = (Math.PI / 180) * gamma;
-    beta = (Math.PI / 180) * beta;
-    alfa = (Math.PI / 180) * alfa;
+    gamma = degToRad(gamma);
+    beta = degToRad(beta);
+    alfa = degToRad(alfa);
     let oldAmountOfUndefined;
     let actuaAmountOfUndefined;
-    if ((gamma ?? 0) + (beta ?? 0) + (alfa ?? 0) <= 3.1416) {
+    if ((gamma ?? 0) + (beta ?? 0) + (alfa ?? 0) <= Math.PI) {
       do {
         oldAmountOfUndefined = countUndefined([a, b, c, alfa, beta, gamma, ha, hb, hc, r, circuit, field, R]);
-        a = a ? a : TriangleFunctions.gettingSideWithAllFunctions(alfa, ha, b, beta, c, gamma, circuit, field, r, R);
-        b = b ? b : TriangleFunctions.gettingSideWithAllFunctions(beta, hb, a, alfa, c, gamma, circuit, field, r, R);
-        c = c ? c : TriangleFunctions.gettingSideWithAllFunctions(gamma, hc, a, alfa, b, beta, circuit, field, r, R);
-        alfa = TriangleFunctions.gettingAngleAllFunctions(a, b, c, beta, gamma);
-        beta = TriangleFunctions.gettingAngleAllFunctions(b, a, c, alfa, gamma);
-        gamma = TriangleFunctions.gettingAngleAllFunctions(c, a, b, alfa, beta);
-        ha = TriangleFunctions.getHeight(field, a);
-        hb = TriangleFunctions.getHeight(field, b);
-        hc = TriangleFunctions.getHeight(field, c);
+        a = a || TriangleFunctions.gettingSideWithAllFunctions(alfa, ha, b, beta, c, gamma, circuit, field, r, R);
+        b = b || TriangleFunctions.gettingSideWithAllFunctions(beta, hb, a, alfa, c, gamma, circuit, field, r, R);
+        c = c || TriangleFunctions.gettingSideWithAllFunctions(gamma, hc, a, alfa, b, beta, circuit, field, r, R);
+        alfa = alfa || TriangleFunctions.gettingAngleAllFunctions(a, b, c, beta, gamma);
+        beta = beta || TriangleFunctions.gettingAngleAllFunctions(b, a, c, alfa, gamma);
+        gamma = gamma || TriangleFunctions.gettingAngleAllFunctions(c, a, b, alfa, beta);
+        ha = ha || TriangleFunctions.getHeight(field, a);
+        hb = hb || TriangleFunctions.getHeight(field, b);
+        hc = hc || TriangleFunctions.getHeight(field, c);
         R = TriangleFunctions.gettingCircumscribedRadius(a, alfa, b, beta, c, gamma, field);
-        r = TriangleFunctions.gettingInscribedRadius(field, a, b, c);
-        circuit = TriangleFunctions.gettingCircuit(a, b, c);
-        field = TriangleFunctions.gettingField(a, ha, alfa, b, hb, beta, c, hc, gamma, r, R);
+        r = r || TriangleFunctions.gettingInscribedRadius(field, a, b, c);
+        circuit = circuit || TriangleFunctions.gettingCircuit(a, b, c);
+        field = field || TriangleFunctions.gettingField(a, ha, alfa, b, hb, beta, c, hc, gamma, r, R);
         actuaAmountOfUndefined = countUndefined([a, b, c, alfa, beta, gamma, ha, hb, hc, r, circuit, field, R]);
-        
-      } while (oldAmountOfUndefined === actuaAmountOfUndefined);
+      } while (oldAmountOfUndefined !== actuaAmountOfUndefined);
+
+      setResult({
+        a: a,
+        b: b,
+        c: c,
+        alfa: radToDeg(alfa),
+        beta: radToDeg(beta),
+        gamma: radToDeg(gamma),
+        ha: ha,
+        hb: hb,
+        hc: hc,
+        r: r,
+        R: R,
+        circuit: circuit,
+        field: field,
+      });
     } else {
       wrongDataAlert('Przekroczono maksymalna rozpietość kątów ');
     }
   };
 
-  const mathCalculations = () => {
-    const inputsValues = imagesInputsRefs.current.map((ref) => {
+  const submitData = () => {
+    const imagesInputsValues = imagesInputsRefs.current.map((ref) => {
       return {
         name: ref.current?.attributes[0]?.value, // placeholder
         value: ref.current.value,
       };
     });
-    const isDataValid = inputsValues.every((item) => /^[0-9]{0,3}$/.test(item?.value));
+    const isDataValid = imagesInputsValues.every((item) => /^\d{0,3}(\.\d{0,6})?$/.test(item?.value));
     if (!isDataValid) wrongDataAlert('Dane są nieprawidłowe');
     else {
       const variables = ['a', 'b', 'c', 'α', 'β', 'Y', 'h(a)', 'h(b)', 'h(c)', 'r'];
-      const values = [];
-
-      for (let variable of variables) {
-        const value =
-          imagesInputsRefs.current.find((element) => element.current.attributes[0].value === variable)?.current.value ??
-          null;
-        values.push(Number(value));
-      }
-
-      let [a, b, c, alfa, beta, gamma, ha, hb, hc, r] = values;
-
-      calculatingSite(
-        a,
-        b,
-        c,
-        alfa,
-        beta,
-        gamma,
-        ha,
-        hb,
-        hc,
-        r,
-        Number(circuitInput),
-        Number(fieldInput),
-        Number(RVal)
-      );
+      const values = variables.map((variable) => {
+        const value = Number(
+          imagesInputsRefs.current.find((element) => element.current.attributes[0].value === variable)?.current.value
+        );
+        return value > 0 ? value : false;
+      });
+      const userData = Object.values(preResultInputs).map((item) => (item > 0 ? Number(item) : false));
+      dataCalculation(...values, ...userData);
     }
     // All the calculations
   };
@@ -155,8 +180,7 @@ function Triangle() {
             elemPerRow={2.7}
             onClick={() => {
               setChoosedTriangleVersion(box.name);
-              setInputsToRender([]);
-              imagesInputsRefs.current = [];
+              resetData();
             }}
           >
             <FieldTopic>{box.name}</FieldTopic>
@@ -183,8 +207,7 @@ function Triangle() {
 
           <GeometricButton
             onClick={() => {
-              imagesInputsRefs.current = [];
-              setInputsToRender([]);
+              resetData();
             }}
           >
             Resetuj rysunek
@@ -192,36 +215,35 @@ function Triangle() {
 
           <InputWithUnits
             placeholder={'Podaj pole: '}
-            value={fieldInput}
-            onChange={(e) => handleChange(e, setFieldInput)}
+            value={preResultInputs.fieldInput}
+            onChange={(e) => handleChange(e, 'fieldInput')}
             maxLength={8}
             noUnits={true}
           ></InputWithUnits>
           <InputWithUnits
             placeholder={'Podaj obwód: '}
-            value={circuitInput}
-            onChange={(e) => handleChange(e, setCircuitInput)}
+            value={preResultInputs.circuitInput}
+            onChange={(e) => handleChange(e, 'circuitInput')}
             maxLength={8}
             noUnits={true}
           ></InputWithUnits>
           <InputWithUnits
             placeholder={'Promień okregu opisanego: '}
-            value={RVal}
-            onChange={(e) => handleChange(e, setRVal)}
+            value={preResultInputs.RVal}
+            onChange={(e) => handleChange(e, 'RVal')}
             maxLength={8}
             noUnits={true}
           ></InputWithUnits>
           <SubmitContainer>
-            <GeometricButton onClick={mathCalculations}>Policz</GeometricButton>
+            <GeometricButton onClick={submitData}>Policz</GeometricButton>
           </SubmitContainer>
 
           <ResultTable>
-            <div>
-              Bok:<p>{0}</p>
-            </div>
-            <div>
-              Pole: <p>{0}</p>
-            </div>
+            {Object.entries(result).map(([key, value]) => (
+              <div key={key}>
+                {key}:<p>{transformToDecIfNeeded(value, 2)}</p>
+              </div>
+            ))}
           </ResultTable>
         </>
       ) : (
