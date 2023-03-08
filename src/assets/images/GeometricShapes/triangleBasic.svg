@@ -1,7 +1,7 @@
 <svg width="590" height="324" viewBox="0 0 590 324" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
         letter-spacing="0em">
-        <tspan x="254.445" y="315.091">c</tspan>
+        <tspan x="254.357" y="315.091">a</tspan>
     </text>
     <path d="M6.70285 282L121.446 11.5088L521.543 282H6.70285Z" fill="white" stroke="black" stroke-width="2" />
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
@@ -10,7 +10,7 @@
     </text>
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
         letter-spacing="0em">
-        <tspan x="300" y="121.091">a</tspan>
+        <tspan x="300" y="121.091">c</tspan>
     </text>
     <path
         d="M280 174.5C280 233.301 231.44 281 171.5 281C111.56 281 63 233.301 63 174.5C63 115.699 111.56 68 171.5 68C231.44 68 280 115.699 280 174.5Z"
@@ -23,32 +23,31 @@
     <path d="M8.00022 283.001L266.652 107.769" stroke="#D20C0C" stroke-width="2" stroke-dasharray="4 4" />
     <text fill="#D20C0C" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="24"
         letter-spacing="0em">
-        <tspan x="122.41" y="237.227">h(a)</tspan>
+        <tspan x="115.152" y="240.227">h(c)</tspan>
     </text>
     <text fill="#14F22A" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="24"
         letter-spacing="0em">
-        <tspan x="152.41" y="102.227">h(c)</tspan>
+        <tspan x="155.453" y="102.227">h(a)</tspan>
     </text>
     <text fill="#1B6B98" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="24"
         letter-spacing="0em">
-        <tspan x="256.41" y="195.227">h(b)</tspan>
+        <tspan x="232.402" y="189.227">h(b)</tspan>
     </text>
-    <rect x="115" y="30" width="32" height="33" fill="#D9D9D9" />
-    <rect x="22" y="249" width="32" height="31" fill="#D9D9D9" />
-    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="18"
-        letter-spacing="0em">
-        <tspan x="31.2344" y="268.545">α</tspan>
-    </text>
+    <rect x="115" y="30" width="30" height="30" fill="#D9D9D9" />
+    <rect x="24" y="247" width="30" height="30" fill="#D9D9D9" />
     <path d="M66.9679 140.607L515.737 280.178" stroke="#00BAF4" stroke-width="2" stroke-dasharray="4 4" />
     <circle cx="171" cy="175" r="7" fill="black" />
-    <rect x="434" y="246" width="32" height="31" fill="#D9D9D9" />
+    <rect x="434" y="246" width="30" height="30" fill="#D9D9D9" />
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="18"
         letter-spacing="0em">
-        <tspan x="446.165" y="266.545">β</tspan>
+        <tspan x="443.665" y="267.545">β</tspan>
     </text>
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Jomolhari" font-size="18"
         letter-spacing="0em">
-        <tspan x="123.258" y="52.0234">Y</tspan>
+        <tspan x="31.2578" y="269.023">Y</tspan>
     </text>
-    <line x1="524" y1="323.5" x2="590" y2="323.5" stroke="black" />
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="18"
+        letter-spacing="0em">
+        <tspan x="124.234" y="51.5455">α</tspan>
+    </text>
 </svg>
