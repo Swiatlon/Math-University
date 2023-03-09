@@ -88,7 +88,6 @@ function Triangle() {
     alfa = degToRad(alfa);
     let oldAmountOfUndefined;
     let actuaAmountOfUndefined;
-
     switch (triangleVersion) {
       case 'Prostokatny':
         gamma = Math.PI / 2; // 90 deg
@@ -127,11 +126,11 @@ function Triangle() {
     alfa = radToDeg(alfa);
     beta = radToDeg(beta);
     gamma = radToDeg(gamma);
-    return [a, b, c, alfa, beta, gamma, ha, hb, hc, r, R, circuit, field];
+    return { a, b, c, alfa, beta, gamma, ha, hb, hc, r, R, circuit, field };
   };
 
   const submitData = () => {
-    const variables = ['a', 'b', 'c', 'α', 'β', 'Y', 'h(a)', 'h(b)', 'h(c)', 'r', 'R', 'circuit', 'field'];
+    const variables = ['a', 'b', 'c', 'α', 'β', 'Y', 'h(a)', 'h(b)', 'h(c)', 'r', 'circuit', 'field', 'R'];
 
     const values = variables.map((variable) => {
       const value = Number(
@@ -145,13 +144,8 @@ function Triangle() {
     variables[4] = 'beta';
 
     const userData = Object.values(preResultInputs).map((item) => (item > 0 ? Number(item) : false));
-    const calculatedValues = dataCalculation(...values, ...userData, choosedTriangleVersion).reduce(
-      (acc, item, index) => {
-        acc[variables[index]] = item;
-        return acc;
-      },
-      {}
-    );
+    values.splice(-3, 3, ...userData);
+    const calculatedValues = dataCalculation(...values, choosedTriangleVersion);
 
     // Checking if everything is correct
     if (calculatedValues.alfa * 1 + calculatedValues.beta * 1 + calculatedValues.Y * 1 > 180) {
@@ -187,8 +181,7 @@ function Triangle() {
         break;
       default:
     }
-
-    console.log(calculatedValues);
+    setResult(calculatedValues);
   };
 
   const elements = [
