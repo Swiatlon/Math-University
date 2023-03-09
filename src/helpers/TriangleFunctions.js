@@ -46,10 +46,14 @@ const TriangleFunctions = {
     else return false;
   },
 
-  getAngleFromSinusLaw: function (firstSide, secondSide, secondSideAngle, thirdSide, thirdSideAngle) {
+  getAngleFromSinusLaw: function (firstSide, secondSide, secondSideAngle, thirdSide, thirdSideAngle, R) {
     if (!firstSide) return false;
-    if (secondSide && secondSideAngle) return (firstSide * secondSideAngle) / secondSide;
-    if (thirdSide && thirdSideAngle) return (firstSide * thirdSideAngle) / thirdSide;
+
+    if (R) return Math.asin(firstSide / (2 * R));
+
+    if (secondSide && secondSideAngle) return Math.asin((firstSide * Math.sin(secondSideAngle)) / secondSide);
+
+    if (thirdSide && thirdSideAngle) return Math.asin((firstSide * Math.sin(thirdSideAngle)) / thirdSide);
     else return false;
   },
 
@@ -62,7 +66,7 @@ const TriangleFunctions = {
 
   getAngleFromCosinusLaw: function (firstSide, secondSide, thirdSide) {
     if (!firstSide || !secondSide || !thirdSide) return false;
-    return (firstSide ** 2 - secondSide ** 2 - thirdSide ** 2) / (-2 * secondSide * thirdSide);
+    return Math.acos((firstSide ** 2 - secondSide ** 2 - thirdSide ** 2) / (-2 * secondSide * thirdSide));
   },
 
   getAngleFromTwoAngles: function (firstAngle, secondAngle) {
@@ -92,7 +96,7 @@ const TriangleFunctions = {
     }
 
     if (side && firstSideAngle) {
-      return side / (Math.sin(firstSideAngle) * 2);
+      return side / Math.sin(firstSideAngle) / 2;
     }
 
     if (secondSide && secondSideAngle) {
@@ -188,10 +192,10 @@ const TriangleFunctions = {
     return transformToDecIfNeeded(result, 3);
   },
 
-  gettingAngleAllFunctions: function (firstSide, secondSide, thirdSide, secondSideAngle, thirdSideAngle) {
+  gettingAngleAllFunctions: function (firstSide, secondSide, thirdSide, secondSideAngle, thirdSideAngle, R) {
     const result =
       this.getAngleFromTwoAngles(secondSideAngle, thirdSideAngle) ||
-      this.getAngleFromSinusLaw(firstSide, secondSide, secondSideAngle, thirdSide, thirdSideAngle) ||
+      this.getAngleFromSinusLaw(firstSide, secondSide, secondSideAngle, thirdSide, thirdSideAngle, R) ||
       this.getAngleFromCosinusLaw(firstSide, secondSide, thirdSide);
     return result;
   },
