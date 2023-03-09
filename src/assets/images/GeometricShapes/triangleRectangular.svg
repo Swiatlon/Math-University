@@ -1,0 +1,55 @@
+<svg width="385" height="335" viewBox="0 0 385 335" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M35 294H382.205L35 9.11404V156.38V294Z" fill="white" stroke="black" stroke-width="2" />
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="0" y="189.091">b</tspan>
+    </text>
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="192.992" y="330.091">a</tspan>
+    </text>
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="223.516" y="145.091">c</tspan>
+    </text>
+    <path
+        d="M49.5625 273.019C50.1428 273.019 50.6342 273.56 51.2043 273.64C51.7156 273.713 52.1883 274.121 52.6898 274.176C53.082 274.219 53.6355 274.54 53.9841 274.759C54.2763 274.942 54.4938 275.257 54.7964 275.406C55.0277 275.52 55.2037 275.8 55.4262 275.873"
+        stroke="black" stroke-width="2" stroke-linecap="round" />
+    <path
+        d="M39.1245 273.637C39.1772 273.222 40.965 272.809 41.3649 272.688C42.2651 272.414 43.3769 272.516 44.3154 272.516C45.1306 272.516 45.9457 272.516 46.7609 272.516C47.4997 272.516 48.2556 272.797 48.9225 272.797"
+        stroke="black" stroke-width="2" stroke-linecap="round" />
+    <path
+        d="M59.6475 281.967C59.7114 282.314 59.9246 282.615 59.9645 282.97C60.0047 283.326 60.0531 283.767 60.2338 284.088C60.371 284.332 60.4084 284.724 60.4293 284.992C60.4498 285.256 60.5856 285.449 60.5856 285.747"
+        stroke="black" stroke-width="2" stroke-linecap="round" />
+    <path
+        d="M60.6714 286.452C60.7147 286.837 60.9079 287.223 60.9521 287.616C60.9707 287.78 61.0644 287.946 61.0644 288.114C61.0644 288.354 61.0644 288.594 61.0644 288.834C61.0644 289.828 60.9521 290.821 60.9521 291.826"
+        stroke="black" stroke-width="2" stroke-linecap="round" />
+    <path
+        d="M55.8169 276.104C56.1367 276.168 56.7392 276.739 56.9158 277C57.2302 277.465 57.7391 277.795 58.0451 278.264C58.1825 278.475 58.3297 278.531 58.436 278.761C58.5425 278.993 58.6742 279.227 58.7878 279.464C59.0579 280.029 59.2896 280.74 59.4133 281.35"
+        stroke="black" stroke-width="2" stroke-linecap="round" />
+    <path
+        d="M217 202.5C217 253.039 176.253 294 126 294C75.7472 294 35 253.039 35 202.5C35 151.961 75.7472 111 126 111C176.253 111 217 151.961 217 202.5Z"
+        fill="white" stroke="black" stroke-width="2" />
+    <ellipse cx="47.819" cy="284.813" rx="2.51678" ry="2.48317" fill="black" />
+    <rect x="40" y="40" width="30" height="30" fill="#D9D9D9" />
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="18"
+        letter-spacing="0em">
+        <tspan x="49.2344" y="58.5455">α</tspan>
+    </text>
+    <rect x="309" y="261" width="30" height="30" fill="#D9D9D9" />
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="18"
+        letter-spacing="0em">
+        <tspan x="318.665" y="281.545">β</tspan>
+    </text>
+    <path d="M190.64 138.431L35.7561 292.438" stroke="#00BAF4" stroke-width="2" stroke-dasharray="4 4" />
+    <ellipse cx="126.434" cy="202.596" rx="7.43434" ry="7.59596" fill="black" />
+    <text fill="#1B6B98" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="22"
+        letter-spacing="0em">
+        <tspan x="119.015" y="232.5">h(c)</tspan>
+    </text>
+    <line x1="36" y1="202" x2="126.024" y2="202" stroke="black" stroke-width="2" />
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="24"
+        letter-spacing="0em">
+        <tspan x="68.0352" y="197.227">r</tspan>
+    </text>
+</svg>
