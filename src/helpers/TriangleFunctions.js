@@ -1,122 +1,81 @@
 import { transformToDecIfNeeded } from './Helpers';
-export default class TriangleFunctions {
-  static gettingThirdSide({ firstSide, secondSide, angleBettwen, circuit }) {
-    if (firstSide && secondSide) {
-      if (circuit) return this.sideFromCircuit(firstSide, secondSide, circuit);
-      else if (angleBettwen) return this.cosineLaw(firstSide, secondSide, angleBettwen);
-    }
-  }
+const TriangleFunctions = {
+  getSideFromCircuit: function (secondSide, thirdSide, circuit) {
+    if (!secondSide || !thirdSide || !circuit) return false;
+    return circuit - (secondSide + thirdSide);
+  },
 
-  static sideFromCircuit(secondSide, thirdSide, circuit) {
-    if (secondSide && thirdSide && circuit) {
-      return circuit - (secondSide + thirdSide);
-    }
-  }
-
-  static sideFromField(field, sideHeight, sideAngle, secondSide, secondSideAngle, thirdSide, thirdSideAngle, r, R) {
-    // a => h(a) => alfa  || b => h(b) => beta || c => h(c) => gamma
-    if (field) {
-      if (sideHeight) return (2 * field) / sideHeight;
-      else if (sideAngle && secondSideAngle && thirdSideAngle)
-        return Math.sqrt((2 * field * Math.sin(sideAngle)) / (Math.sin(secondSideAngle) * Math.sin(thirdSideAngle)));
-      else if (secondSide && thirdSide) {
-        if (r) return (2 * field) / r - thirdSide - secondSide;
-        else if (R) return (field * (4 * R)) / (secondSide * thirdSide);
-        else if (thirdSideAngle || secondSideAngle)
-          return (
-            (2 * field) / secondSide / Math.sin(thirdSideAngle) || (2 * field) / thirdSide / Math.sin(secondSideAngle)
-          );
-      }
-    }
-  }
-
-  static sinusLaw(sideWeLookingForAngle, secondSide, secondSideAngle, thirdSide, thirdSideAngle, radius) {
-    // side a => angle  alfa  || side b =>  angle beta || side c => angle gamma
-    if (sideWeLookingForAngle) {
-      if (radius) return 2 * radius * Math.sin(sideWeLookingForAngle);
-      else {
-        if (secondSide && secondSideAngle)
-          return (secondSide / Math.sin(secondSideAngle)) * Math.sin(sideWeLookingForAngle);
-        else if (thirdSide && thirdSideAngle)
-          return (thirdSide / Math.sin(thirdSideAngle)) * Math.sin(sideWeLookingForAngle);
-      }
-    }
-  }
-
-  static cosineLaw(secondSide, thirdSide, angleBettwen) {
-    if (secondSide && thirdSide && angleBettwen) {
-      return Math.sqrt(
-        Math.pow(secondSide, 2) + Math.pow(thirdSide, 2) - 2 * secondSide * thirdSide * Math.cos(angleBettwen)
-      );
-    }
-  }
-
-  static angleFromTwoAngles(firstAngle, secondAngle) {
-    // 3.14... => 180 degree
-    if (firstAngle && secondAngle && firstAngle + secondAngle < 3.14159265359) {
-      return 3.14159265359 - firstAngle - secondAngle;
-    }
-  }
-
-  static angleFromSinusLaw(firstSide, secondSide, secondSideAngle, thirdSide, thirdSideAngle) {
-    if (firstSide && secondSide && secondSideAngle) {
-      return (firstSide * secondSideAngle) / secondSide;
-    } else if (firstSide && thirdSide && thirdSideAngle) {
-      return (firstSide * thirdSideAngle) / thirdSide;
-    }
-  }
-
-  static angleFromCosinusLaw(firstSide, secondSide, thirdSide) {
-    if (firstSide && secondSide && thirdSide) {
-      return (firstSide ** 2 - secondSide ** 2 - thirdSide ** 2) / (-2 * secondSide * thirdSide);
-    }
-  }
-
-  static getHeight(field, side) {
-    if (field && side) {
-      return (2 * field) / side;
-    }
-  }
-
-  static gettingSideWithAllFunctions(
-    firstSideAngle,
-    firstSideHeight,
+  getSideFromField: function (
+    field,
+    sideHeight,
+    sideAngle,
     secondSide,
     secondSideAngle,
     thirdSide,
     thirdSideAngle,
-    circuit,
-    field,
     r,
     R
   ) {
-    const result =
-      this.sideFromCircuit(secondSide, thirdSide, circuit) ||
-      this.cosineLaw(secondSide, thirdSide, firstSideAngle) ||
-      this.sinusLaw(firstSideAngle, secondSide, secondSideAngle, thirdSide, thirdSideAngle, R) ||
-      this.sideFromField(
-        field,
-        firstSideHeight,
-        firstSideAngle,
-        secondSide,
-        secondSideAngle,
-        thirdSide,
-        thirdSideAngle,
-        r,
-        R
-      );
-    return transformToDecIfNeeded(result, 3);
-  }
+    // a => h(a) => alfa  || b => h(b) => beta || c => h(c) => gamma
+    if (!field) return false;
 
-  static gettingAngleAllFunctions(firstSide, secondSide, thirdSide, secondSideAngle, thirdSideAngle) {
-    const result =
-      this.angleFromTwoAngles(secondSideAngle, thirdSideAngle) ||
-      this.angleFromSinusLaw(firstSide, secondSide, secondSideAngle, thirdSide, thirdSideAngle) ||
-      this.angleFromCosinusLaw(firstSide, secondSide, thirdSide);
-    return result;
-  }
+    if (sideHeight) return (2 * field) / sideHeight;
 
-  static gettingCircumscribedRadius(
+    if (sideAngle && secondSideAngle && thirdSideAngle)
+      return Math.sqrt((2 * field * Math.sin(sideAngle)) / (Math.sin(secondSideAngle) * Math.sin(thirdSideAngle)));
+
+    if (!secondSide && !thirdSide) return false;
+
+    if (r) return (2 * field) / r - thirdSide - secondSide;
+
+    if (R) return (field * (4 * R)) / (secondSide * thirdSide);
+
+    if (thirdSideAngle || secondSideAngle)
+      return (2 * field) / secondSide / Math.sin(thirdSideAngle) || (2 * field) / thirdSide / Math.sin(secondSideAngle);
+  },
+
+  sinusLaw: function (sideWeLookingForAngle, secondSide, secondSideAngle, thirdSide, thirdSideAngle, radius) {
+    if (!sideWeLookingForAngle) return false;
+
+    if (radius) return 2 * radius * Math.sin(sideWeLookingForAngle);
+
+    if (secondSide && secondSideAngle)
+      return (secondSide / Math.sin(secondSideAngle)) * Math.sin(sideWeLookingForAngle);
+
+    if (thirdSide && thirdSideAngle) return (thirdSide / Math.sin(thirdSideAngle)) * Math.sin(sideWeLookingForAngle);
+    else return false;
+  },
+
+  getAngleFromSinusLaw: function (firstSide, secondSide, secondSideAngle, thirdSide, thirdSideAngle) {
+    if (!firstSide) return false;
+    if (secondSide && secondSideAngle) return (firstSide * secondSideAngle) / secondSide;
+    if (thirdSide && thirdSideAngle) return (firstSide * thirdSideAngle) / thirdSide;
+    else return false;
+  },
+
+  cosineLaw: function (secondSide, thirdSide, angleBettwen) {
+    if (!secondSide || !thirdSide || !angleBettwen) return false;
+    return Math.sqrt(
+      Math.pow(secondSide, 2) + Math.pow(thirdSide, 2) - 2 * secondSide * thirdSide * Math.cos(angleBettwen)
+    );
+  },
+
+  getAngleFromCosinusLaw: function (firstSide, secondSide, thirdSide) {
+    if (!firstSide || !secondSide || !thirdSide) return false;
+    return (firstSide ** 2 - secondSide ** 2 - thirdSide ** 2) / (-2 * secondSide * thirdSide);
+  },
+
+  getAngleFromTwoAngles: function (firstAngle, secondAngle) {
+    if (!firstAngle || !secondAngle || firstAngle + secondAngle > Math.PI) return false;
+    return Math.PI - firstAngle - secondAngle;
+  },
+
+  getHeight: function (field, side) {
+    if (!field && !side) return false;
+    return (2 * field) / side;
+  },
+
+  getCircumscribedRadius: function (
     side,
     firstSideAngle,
     secondSide,
@@ -126,33 +85,36 @@ export default class TriangleFunctions {
     field
   ) {
     if (field) {
-      if (side && secondSide && thirdSide) {
-        return (side * secondSide * thirdSide) / (field * 4);
-      } else if (firstSideAngle && secondSideAngle && thirdSideAngle) {
+      if (side && secondSide && thirdSide) return (side * secondSide * thirdSide) / (field * 4);
+
+      if (firstSideAngle && secondSideAngle && thirdSideAngle)
         return Math.sqrt(field / 2 / (firstSideAngle * secondSideAngle * thirdSideAngle));
-      }
-    } else if (side && firstSideAngle) {
+    }
+
+    if (side && firstSideAngle) {
       return side / (Math.sin(firstSideAngle) * 2);
-    } else if (secondSide && secondSideAngle) {
+    }
+
+    if (secondSide && secondSideAngle) {
       return secondSide / (Math.sin(secondSideAngle) * 2);
-    } else if (thirdSide && thirdSideAngle) {
+    }
+
+    if (thirdSide && thirdSideAngle) {
       return thirdSide / (Math.sin(thirdSideAngle) * 2);
-    }
-  }
+    } else return false;
+  },
 
-  static gettingInscribedRadius(field, firstSide, secondSide, thirdSide) {
-    if (field && firstSide && secondSide && thirdSide) {
-      return field / ((firstSide + secondSide + thirdSide) / 2);
-    }
-  }
+  getInscribedRadius: function (field, firstSide, secondSide, thirdSide) {
+    if (!field || !firstSide || !secondSide || !thirdSide) return false;
+    return field / ((firstSide + secondSide + thirdSide) / 2);
+  },
 
-  static gettingCircuit(firstSide, secondSide, thirdSide) {
-    if (firstSide && secondSide && thirdSide) {
-      return firstSide + secondSide + thirdSide;
-    }
-  }
+  getCircuit: function (firstSide, secondSide, thirdSide) {
+    if (!firstSide || !secondSide || !thirdSide) return false;
+    return firstSide + secondSide + thirdSide;
+  },
 
-  static gettingField(
+  getField: function (
     firstSide,
     firstSideHeight,
     firstSideAngle,
@@ -168,20 +130,71 @@ export default class TriangleFunctions {
     if (firstSide && secondSide && thirdSide) {
       let p = (firstSide + secondSide + thirdSide) / 2;
       return Math.sqrt(p * (p - firstSide) * (p - secondSide) * (p - thirdSide));
-    } else if (firstSideAngle && secondSideAngle && thirdSideAngle) {
-      if (firstSide) return ((firstSide ** 2 / 2) * (secondSideAngle * thirdSideAngle)) / firstSideAngle;
-      else if (secondSide) return ((secondSide ** 2 / 2) * (firstSideAngle * thirdSideAngle)) / secondSideAngle;
-      else if (thirdSide) return ((thirdSide ** 2 / 2) * (secondSideAngle * firstSideAngle)) / thirdSideAngle;
-      else if (R) return 2 * R ** 2 * firstSideAngle * secondSideAngle * thirdSideAngle;
-    } else if (firstSide) {
-      if (firstSideHeight) return (firstSide * firstSideHeight) / 2;
-      else if (secondSide && thirdSideAngle) return (firstSide * secondSide * thirdSideAngle) / 2;
-    } else if (secondSide) {
-      if (secondSideHeight) return (secondSide * secondSideHeight) / 2;
-      else if (thirdSide && firstSideAngle) return (thirdSide * secondSide * firstSideAngle) / 2;
-    } else if (thirdSide) {
-      if (thirdSideHeight) return (thirdSide * thirdSideHeight) / 2;
-      else if (firstSide && secondSideAngle) return (thirdSide * firstSide * secondSideAngle) / 2;
     }
-  }
-}
+
+    if (firstSideAngle && secondSideAngle && thirdSideAngle) {
+      if (firstSide) return ((firstSide ** 2 / 2) * (secondSideAngle * thirdSideAngle)) / firstSideAngle;
+
+      if (secondSide) return ((secondSide ** 2 / 2) * (firstSideAngle * thirdSideAngle)) / secondSideAngle;
+
+      if (thirdSide) return ((thirdSide ** 2 / 2) * (secondSideAngle * firstSideAngle)) / thirdSideAngle;
+
+      if (R) return 2 * R ** 2 * firstSideAngle * secondSideAngle * thirdSideAngle;
+    }
+
+    if (firstSide) {
+      if (firstSideHeight) return (firstSide * firstSideHeight) / 2;
+      if (secondSide && thirdSideAngle) return (firstSide * secondSide * thirdSideAngle) / 2;
+    }
+
+    if (secondSide) {
+      if (secondSideHeight) return (secondSide * secondSideHeight) / 2;
+      if (thirdSide && firstSideAngle) return (thirdSide * secondSide * firstSideAngle) / 2;
+    }
+
+    if (thirdSide) {
+      if (thirdSideHeight) return (thirdSide * thirdSideHeight) / 2;
+      if (firstSide && secondSideAngle) return (thirdSide * firstSide * secondSideAngle) / 2;
+    } else return false;
+  },
+
+  gettingSideWithAllFunctions: function (
+    firstSideAngle,
+    firstSideHeight,
+    secondSide,
+    secondSideAngle,
+    thirdSide,
+    thirdSideAngle,
+    circuit,
+    field,
+    r,
+    R
+  ) {
+    const result =
+      this.getSideFromCircuit(secondSide, thirdSide, circuit) ||
+      this.cosineLaw(secondSide, thirdSide, firstSideAngle) ||
+      this.sinusLaw(firstSideAngle, secondSide, secondSideAngle, thirdSide, thirdSideAngle, R) ||
+      this.getSideFromField(
+        field,
+        firstSideHeight,
+        firstSideAngle,
+        secondSide,
+        secondSideAngle,
+        thirdSide,
+        thirdSideAngle,
+        r,
+        R
+      );
+    return transformToDecIfNeeded(result, 3);
+  },
+
+  gettingAngleAllFunctions: function (firstSide, secondSide, thirdSide, secondSideAngle, thirdSideAngle) {
+    const result =
+      this.getAngleFromTwoAngles(secondSideAngle, thirdSideAngle) ||
+      this.getAngleFromSinusLaw(firstSide, secondSide, secondSideAngle, thirdSide, thirdSideAngle) ||
+      this.getAngleFromCosinusLaw(firstSide, secondSide, thirdSide);
+    return result;
+  },
+};
+
+export default TriangleFunctions;
