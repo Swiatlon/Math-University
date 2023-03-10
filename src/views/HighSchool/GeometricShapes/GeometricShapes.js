@@ -46,7 +46,7 @@ function GeometricShapes() {
         return <Triangle />;
       case 'Trapez':
         return <Trapeze />;
-      case 'Rownoległobok':
+      case 'Równoległobok':
         return <Parallelogram />;
       case 'Romb':
         return <Rhomb />;

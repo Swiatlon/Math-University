@@ -26,7 +26,7 @@ function Trapeze() {
     h: '',
     d: '',
     circuit: '',
-    Field: '',
+    field: '',
   };
 
   const imagesInputsRefs = useRef([]);
@@ -52,9 +52,7 @@ function Trapeze() {
     imagesInputsRefs.current = [];
   };
 
-  const dataCalculation = (a, b, c, h, d, circuit, field) => {
-    
-  };
+  const dataCalculation = (a, b, c, h, d, circuit, field) => {};
 
   const submitData = () => {
     const variables = ['a', 'b', 'c', 'd', 'circuit', 'field'];

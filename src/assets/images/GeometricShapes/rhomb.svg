@@ -1,0 +1,57 @@
+<svg width="250" height="310" viewBox="0 0 250 310" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18.6629 154.292L125 1.74868L231.337 154.292H18.6629Z" fill="white" stroke="black" stroke-width="2" />
+    <path d="M231.337 155.708L125 308.251L18.6629 155.708H231.337Z" fill="white" stroke="black" stroke-width="2"
+        stroke-linejoin="round" />
+    <path d="M21 153H229V157H21V153Z" fill="white" />
+    <line x1="18" y1="155" x2="233" y2="155" stroke="#FE2828" stroke-width="2" stroke-dasharray="4 4" />
+    <line x1="125" y1="309" x2="125" y2="2" stroke="#0788FF" stroke-width="2" stroke-dasharray="4 4" />
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="40.3574" y="69.0909">a</tspan>
+    </text>
+    <text fill="#1DD200" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="28"
+        letter-spacing="0em">
+        <tspan x="79.2285" y="198.182">h</tspan>
+    </text>
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="196.357" y="263.091">a</tspan>
+    </text>
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="196.357" y="69.0909">a</tspan>
+    </text>
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="40.3574" y="263.091">a</tspan>
+    </text>
+    <text fill="#FE2828" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="15"
+        letter-spacing="0em">
+        <tspan x="188.709" y="183.182">1</tspan>
+    </text>
+    <text fill="#FE2828" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="28"
+        letter-spacing="0em">
+        <tspan x="171.318" y="183.182">d</tspan>
+    </text>
+    <text fill="#0788FF" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="15"
+        letter-spacing="0em">
+        <tspan x="110.654" y="108.182">2</tspan>
+    </text>
+    <text fill="#0788FF" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="28"
+        letter-spacing="0em">
+        <tspan x="93.2637" y="108.182">d</tspan>
+    </text>
+    <path
+        d="M113.5 282L110 286.5C109.004 285.83 114.5 293 125 308L141.5 285L137 279L134 278L130 278L121.5 278L117.5 279L113.5 282Z"
+        fill="white" stroke="black" />
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="18"
+        letter-spacing="0em">
+        <tspan x="120.234" y="295.545">α</tspan>
+    </text>
+    <path
+        d="M126.038 137.658C126.155 137.564 126.344 137.589 126.482 137.561C126.737 137.51 127.02 137.516 127.279 137.494C127.973 137.436 128.677 137.464 129.374 137.464C129.91 137.464 130.447 137.449 130.977 137.55C131.463 137.643 131.928 137.865 132.416 137.968C132.867 138.063 133.307 138.259 133.739 138.414C134.319 138.623 134.875 138.9 135.425 139.175C136.17 139.547 136.696 140.173 137.304 140.718C137.798 141.161 138.242 141.786 138.588 142.351C138.883 142.834 139.307 143.314 139.428 143.881C139.532 144.363 139.695 144.834 139.807 145.316C140.101 146.577 140.157 147.831 140.157 149.124C140.157 149.597 140.163 150.065 140.12 150.535C140.094 150.816 140.079 151.109 140.079 151.391C140.079 151.689 140.001 151.979 140.001 152.278C140.001 152.562 139.986 153.057 139.846 153.289"
+        stroke="black" stroke-linecap="round" />
+    <circle cx="132" cy="147" r="2" fill="black" />
+    <line x1="19.6191" y1="154.215" x2="156.619" y2="262.215" stroke="#0CD75D" stroke-width="2"
+        stroke-dasharray="4 4" />
+</svg>

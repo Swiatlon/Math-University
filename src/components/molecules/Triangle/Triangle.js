@@ -38,7 +38,7 @@ function Triangle() {
     r: '',
     circuit: '',
     R: '',
-    Field: '',
+    field: '',
   };
 
   const imagesInputsRefs = useRef([]);
