@@ -25,6 +25,7 @@ function Trapeze() {
     c: '',
     h: '',
     d: '',
+    e: '',
     circuit: '',
     field: '',
   };
@@ -52,10 +53,10 @@ function Trapeze() {
     imagesInputsRefs.current = [];
   };
 
-  const dataCalculation = (a, b, c, h, d, circuit, field) => {};
+  const dataCalculation = (a, b, c, e, h, d, circuit, field) => {};
 
   const submitData = () => {
-    const variables = ['a', 'b', 'c', 'd', 'circuit', 'field'];
+    const variables = ['a', 'b', 'c', 'e', 'd', 'circuit', 'field'];
 
     const values = variables.map((variable) => {
       const value = Number(
@@ -163,13 +164,6 @@ function Trapeze() {
               placeholder={'Podaj obwód: '}
               value={preResultInputs.circuitInput}
               onChange={(e) => handleChange(e, 'circuitInput')}
-              maxLength={8}
-              noUnits={true}
-            ></InputWithUnits>
-            <InputWithUnits
-              placeholder={'Promień okregu opisanego: '}
-              value={preResultInputs.RVal}
-              onChange={(e) => handleChange(e, 'RVal')}
               maxLength={8}
               noUnits={true}
             ></InputWithUnits>
