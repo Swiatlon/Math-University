@@ -42,3 +42,17 @@ export const FieldTopic = styled.h3`
   justify-self: center;
   padding-top: 0px !important;
 `;
+
+export const ChoosedPartContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  @media (max-width: 600px) {
+    .bigger {
+      width: 80% !important;
+    }
+    svg {
+      width: 100%;
+    }
+  }
+`;
