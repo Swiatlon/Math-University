@@ -1,7 +1,7 @@
 <svg width="327" height="321" viewBox="0 0 327 321" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
         letter-spacing="0em">
-        <tspan x="179.82" y="35.0909">b</tspan>
+        <tspan x="178.82" y="46.0909">b</tspan>
     </text>
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
         letter-spacing="0em">
@@ -12,17 +12,20 @@
         fill="white" stroke="black" stroke-width="2" />
     <path d="M4 251.863H2.04887L3.1882 250.279L138.188 62.5978L140 60.079V63.1818L140 250.863V251.863H139L4 251.863Z"
         fill="white" stroke="black" stroke-width="2" />
-    <mask id="path-5-inside-1_470_726" fill="white">
-        <path d="M141 56.71H238V253.452H141V56.71Z" />
-    </mask>
-    <path d="M141 56.71H238V253.452H141V56.71Z" fill="white" />
-    <path d="M141 58.71H238V54.71H141V58.71ZM238 251.452H141V255.452H238V251.452Z" fill="black"
-        mask="url(#path-5-inside-1_470_726)" />
-    <path d="M138.5 63.8289L141.5 59.2987H237.5L240 65.7705L241 250.863H138L138.5 63.8289Z" fill="white" />
+    <path d="M142 57H237V252H190.5H142V57Z" fill="white" stroke="black" stroke-width="2" />
+    <path d="M138.5 63.5405L141.5 59H237.5L240 65.4865L241 251H138L138.5 63.5405Z" fill="white" />
     <line x1="142" y1="58.0043" x2="142" y2="250.863" stroke="black" stroke-width="2" />
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
         letter-spacing="0em">
         <tspan x="147.365" y="172.051">h</tspan>
+    </text>
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="26.4453" y="144.091">c</tspan>
+    </text>
+    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="295.023" y="150.091">e</tspan>
     </text>
     <path d="M238 56.71L238 253.055" stroke="black" stroke-width="2" />
 </svg>
