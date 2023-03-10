@@ -21,6 +21,8 @@ import TriangleFunctions from 'helpers/TriangleFunctions';
 import { countUndefined, transformToDecIfNeeded } from 'helpers/Helpers';
 import { radToDeg } from 'helpers/Helpers';
 import { degToRad } from 'helpers/Helpers';
+import { ChoosedPartContainer } from 'views/HighSchool/GeometricShapes/GeometricShapes.style';
+import { creatingInputsOnText } from 'helpers/Helpers';
 
 function Triangle() {
   const initialResultState = {
@@ -55,23 +57,6 @@ function Triangle() {
       ...preResultInputs,
       [key]: e.target.value,
     });
-  };
-
-  const creatingInputsOnText = (event) => {
-    if (event.target.localName === 'tspan') {
-      const { offsetX, offsetY } = event.nativeEvent;
-      const x = offsetX - 15;
-      const y = offsetY - 15;
-      const text = { value: event.target.innerHTML, x, y, placeholder: event.target.innerHTML };
-      const arrayContainThisItem = inputsToRender.some((item) => {
-        return text.value === item.value;
-      });
-      if (!arrayContainThisItem) {
-        const newInputRef = React.createRef();
-        imagesInputsRefs.current.push(newInputRef);
-        setInputsToRender([...inputsToRender, text]);
-      }
-    }
   };
 
   const resetData = () => {
@@ -194,13 +179,29 @@ function Triangle() {
   const shape = () => {
     switch (choosedTriangleVersion) {
       case 'Zwykly':
-        return <SvgBasic onClick={creatingInputsOnText}> </SvgBasic>;
+        return (
+          <SvgBasic
+            onClick={(e) => creatingInputsOnText(e, inputsToRender, imagesInputsRefs, setInputsToRender)}
+          ></SvgBasic>
+        );
       case 'Rownoramienny':
-        return <SvgIsoceles onClick={creatingInputsOnText}> </SvgIsoceles>;
+        return (
+          <SvgIsoceles
+            onClick={(e) => creatingInputsOnText(e, inputsToRender, imagesInputsRefs, setInputsToRender)}
+          ></SvgIsoceles>
+        );
       case 'Rownoboczny':
-        return <SvgEquilateral onClick={creatingInputsOnText}> </SvgEquilateral>;
+        return (
+          <SvgEquilateral
+            onClick={(e) => creatingInputsOnText(e, inputsToRender, imagesInputsRefs, setInputsToRender)}
+          ></SvgEquilateral>
+        );
       case 'Prostokatny':
-        return <SvgRectangular onClick={creatingInputsOnText}> </SvgRectangular>;
+        return (
+          <SvgRectangular
+            onClick={(e) => creatingInputsOnText(e, inputsToRender, imagesInputsRefs, setInputsToRender)}
+          ></SvgRectangular>
+        );
       default:
         return <></>;
     }
@@ -231,7 +232,7 @@ function Triangle() {
       </FieldsBoxesContainer>
 
       {choosedTriangleVersion !== null ? (
-        <>
+        <ChoosedPartContainer>
           <h2>Podaj wszystkie wartości które znasz</h2>
           <div style={{ position: 'relative' }}>
             {shape()}
@@ -290,7 +291,7 @@ function Triangle() {
               )
             )}
           </ResultTable>
-        </>
+        </ChoosedPartContainer>
       ) : (
         ''
       )}
