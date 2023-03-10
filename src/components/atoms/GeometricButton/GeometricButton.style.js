@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const GeometricButton = styled.button`
-  padding: 20px 50px;
+  padding: 20px 10px;
   background: white;
   border: 1px solid black;
   font-size: 18px;
