@@ -37,7 +37,14 @@ function Circle() {
     imagesInputsRefs.current = [];
   };
 
-  const dataCalculation = (r, d, circuit, field) => {};
+  const dataCalculation = (r, d, circuit, field) => {
+    const rPattern = d / 2 || circuit / 2 || Math.sqrt(field);
+    r = r || rPattern;
+    d = d || 2 * r;
+    circuit = circuit || 2 * r;
+    field = field || r ** 2;
+    return { r, d, circuit, field };
+  };
 
   const submitData = () => {
     const variables = ['r', 'd', 'circuit', 'field'];
@@ -50,8 +57,11 @@ function Circle() {
     });
 
     const userData = Object.values(preResultInputs).map((item) => (item > 0 ? Number(item) : false));
-    values.splice(-3, 3, ...userData);
+    values.splice(-2, 2, ...userData);
     const calculatedValues = dataCalculation(...values);
+    // set result to string schema with PI
+    calculatedValues.circuit += 'π ';
+    calculatedValues.field += 'π ';
 
     setResult(calculatedValues);
   };
