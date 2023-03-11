@@ -2,7 +2,7 @@ import React from 'react';
 // OVERALL
 
 export function transformToDecIfNeeded(number, decimals) {
-  if (!number) return undefined;
+  if (typeof number != 'number') return number;
   if (number.toString().includes('.')) return Number(number.toFixed(decimals ?? 0));
   else return number;
 }
