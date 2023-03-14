@@ -7,7 +7,9 @@ import { GeometricButton } from 'components/atoms/GeometricButton/GeometricButto
 import InputWithUnits from '../InputWithUnits/InputWithUnits';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';
 import ResultTable from '../ResultTable/ResultTable';
-import { transformToDecIfNeeded } from 'helpers/Helpers';
+import { transformAllToDecIfNeeded } from 'helpers/Helpers';
+import { countUndefined } from 'helpers/Helpers';
+import { CircleAndSector } from 'helpers/CircleAndSector';
 function CircleSector() {
   const initialResultState = {
     r: '',
@@ -20,7 +22,6 @@ function CircleSector() {
   const imagesInputsRefs = useRef([]);
   const [inputsToRender, setInputsToRender] = useState([]);
   const [preResultInputs, setpreResultInputs] = useState({
-    circuitInput: '',
     fieldInput: '',
   });
   const [result, setResult] = useState(initialResultState);
@@ -38,10 +39,23 @@ function CircleSector() {
     imagesInputsRefs.current = [];
   };
 
-  const dataCalculation = (r, l, alfa, beta, circuit, field) => {};
+  const dataCalculation = (r, l, alfa, beta, field) => {
+    let oldAmountOfUndefined;
+    let actuaAmountOfUndefined;
+    do {
+      oldAmountOfUndefined = countUndefined([r, l, alfa, beta, field]);
+      r = r || CircleAndSector.getSectorRadius(field, alfa, l);
+      alfa = alfa || CircleAndSector.getSectorAlfaAngle(r, beta, l, field);
+      l = l || CircleAndSector.getDiamenter(r, alfa);
+      field = field || CircleAndSector.getSectorField(alfa, r, l);
+      beta = beta || 360 - alfa;
+      actuaAmountOfUndefined = countUndefined([r, l, alfa, beta, field]);
+    } while (oldAmountOfUndefined !== actuaAmountOfUndefined);
+    return transformAllToDecIfNeeded({ r, l, alfa, beta, field }, 2);
+  };
 
   const submitData = () => {
-    const variables = ['r', 'l', 'alfa', 'beta', 'circuit', 'field'];
+    const variables = ['r', 'l', 'α', 'β', 'field'];
 
     const values = variables.map((variable) => {
       const value = Number(
@@ -55,8 +69,11 @@ function CircleSector() {
     variables[3] = 'beta';
 
     const userData = Object.values(preResultInputs).map((item) => (item > 0 ? Number(item) : false));
-    values.splice(-3, 3, ...userData);
+    values.splice(-1, 1, ...userData);
     const calculatedValues = dataCalculation(...values);
+
+    calculatedValues.l += 'π';
+    calculatedValues.field += 'π';
 
     setResult(calculatedValues);
   };
@@ -93,13 +110,6 @@ function CircleSector() {
         maxLength={8}
         noUnits={true}
       ></InputWithUnits>
-      <InputWithUnits
-        placeholder={'Podaj obwód: '}
-        value={preResultInputs.circuitInput}
-        onChange={(e) => handleChange(e, 'circuitInput')}
-        maxLength={8}
-        noUnits={true}
-      ></InputWithUnits>
 
       <SubmitContainer>
         <GeometricButton onClick={submitData}>Policz</GeometricButton>
@@ -109,7 +119,7 @@ function CircleSector() {
         {Object.entries(result).map(([key, value]) =>
           value ? (
             <div key={key}>
-              {key}:<p>{transformToDecIfNeeded(value, 2)}</p>
+              {key}:<p>{value}</p>
             </div>
           ) : (
             ''
