@@ -7,6 +7,15 @@ export function transformToDecIfNeeded(number, decimals) {
   else return number;
 }
 
+export function transformAllToDecIfNeeded(obj, precision) {
+  for (let prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
+      obj[prop] = transformToDecIfNeeded(obj[prop], precision);
+    }
+  }
+  return obj;
+}
+
 export function countUndefined(array) {
   return array.reduce((count, element) => {
     if (typeof element === 'undefined' || element === false) {
