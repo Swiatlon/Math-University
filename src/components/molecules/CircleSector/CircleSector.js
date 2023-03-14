@@ -9,7 +9,7 @@ import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButto
 import ResultTable from '../ResultTable/ResultTable';
 import { transformAllToDecIfNeeded } from 'helpers/Helpers';
 import { countUndefined } from 'helpers/Helpers';
-import { CircleAndSector } from 'helpers/CircleAndSector';
+import { CircleAndSector, Sector } from 'helpers/SectorFunctions';
 function CircleSector() {
   const initialResultState = {
     r: '',
@@ -44,10 +44,10 @@ function CircleSector() {
     let actuaAmountOfUndefined;
     do {
       oldAmountOfUndefined = countUndefined([r, l, alfa, beta, field]);
-      r = r || CircleAndSector.getSectorRadius(field, alfa, l);
-      alfa = alfa || CircleAndSector.getSectorAlfaAngle(r, beta, l, field);
-      l = l || CircleAndSector.getDiamenter(r, alfa);
-      field = field || CircleAndSector.getSectorField(alfa, r, l);
+      r = r || Sector.getSectorRadius(field, alfa, l);
+      alfa = alfa || Sector.getSectorAlfaAngle(r, beta, l, field);
+      l = l || Sector.getDiamenter(r, alfa);
+      field = field || Sector.getSectorField(alfa, r, l);
       beta = beta || 360 - alfa;
       actuaAmountOfUndefined = countUndefined([r, l, alfa, beta, field]);
     } while (oldAmountOfUndefined !== actuaAmountOfUndefined);
@@ -72,8 +72,8 @@ function CircleSector() {
     values.splice(-1, 1, ...userData);
     const calculatedValues = dataCalculation(...values);
 
-    calculatedValues.l += 'π';
-    calculatedValues.field += 'π';
+    if (calculatedValues.l) calculatedValues.l += 'π';
+    if (calculatedValues.field) calculatedValues.field += 'π';
 
     setResult(calculatedValues);
   };

@@ -1,8 +1,8 @@
-export const CircleAndSector = {
+export const Sector = {
   getSectorRadius: function (field, alfa, diameter) {
     if (field && alfa) return Math.sqrt((360 * field) / alfa);
 
-    if (diameter) return diameter / 2;
+    if (diameter) return (180 * diameter) / alfa;
     else return false;
   },
 
