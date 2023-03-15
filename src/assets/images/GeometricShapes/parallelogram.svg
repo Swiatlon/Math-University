@@ -38,19 +38,11 @@
         stroke="black" stroke-linecap="round" />
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
         letter-spacing="0em">
-        <tspan x="289.334" y="131.091">d</tspan>
-    </text>
-    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="15"
-        letter-spacing="0em">
-        <tspan x="311.693" y="131.091">1</tspan>
+        <tspan x="286.453" y="140.091">d1</tspan>
     </text>
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
         letter-spacing="0em">
-        <tspan x="164.279" y="95.0909">d</tspan>
-    </text>
-    <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="15"
-        letter-spacing="0em">
-        <tspan x="186.639" y="95.0909">2</tspan>
+        <tspan x="169.422" y="96.0909">d2</tspan>
     </text>
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="18"
         letter-spacing="0em">

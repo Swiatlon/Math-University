@@ -8,6 +8,9 @@ import InputWithUnits from 'components/molecules/InputWithUnits/InputWithUnits';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';
 import ResultTable from 'components/molecules/ResultTable/ResultTable';
 import { transformToDecIfNeeded } from 'helpers/Helpers';
+import { countUndefined } from 'helpers/Helpers';
+import { ParallelogramFunctions } from 'helpers/GeometricFunctions/ParallelogramFunctions';
+import { transformAllToDecIfNeeded } from 'helpers/Helpers';
 function Parallelogram() {
   const initialResultState = {
     a: '',
@@ -42,9 +45,26 @@ function Parallelogram() {
     imagesInputsRefs.current = [];
   };
 
-  const dataCalculation = (a, b, alfa, gamma, h, d1, d2, circuit, field) => {};
+  const dataCalculation = (a, b, alfa, gamma, h, d1, d2, circuit, field) => {
+    let oldAmountOfUndefined;
+    let actuaAmountOfUndefined;
+    do {
+      oldAmountOfUndefined = countUndefined([a, b, alfa, gamma, h, d1, d2, circuit, field]);
+      a = a || ParallelogramFunctions.getFirstSide(field, b, alfa, circuit, h);
+      b = b || ParallelogramFunctions.getSecondSide(field, a, alfa, circuit);
+      alfa = alfa || ParallelogramFunctions.getAlfa(field, a, b);
+      gamma = gamma || ParallelogramFunctions.getGamma(field, d1, d2);
+      h = h || ParallelogramFunctions.getHeight(field, a);
+      d1 = d1 || ParallelogramFunctions.getD1(a, b, alfa);
+      d2 = d2 || ParallelogramFunctions.getD2(a, b, alfa);
+      circuit = circuit || ParallelogramFunctions.getCircuit(a, b);
+      field = field || ParallelogramFunctions.getField(a, b, alfa, gamma, h, d1, d2);
+      actuaAmountOfUndefined = countUndefined([a, b, alfa, gamma, h, d1, d2, circuit, field]);
+    } while (oldAmountOfUndefined !== actuaAmountOfUndefined);
+    return transformAllToDecIfNeeded({ a, b, alfa, gamma, h, d1, d2, circuit, field }, 2);
+  };
   const submitData = () => {
-    const variables = ['a', 'b', 'alfa', 'gamma', 'h', 'd1', 'd2', 'circuit', 'field'];
+    const variables = ['a', 'b', 'α', 'Y', 'h', 'd1', 'd2', 'circuit', 'field'];
 
     const values = variables.map((variable) => {
       const value = Number(
@@ -58,7 +78,7 @@ function Parallelogram() {
     variables[3] = 'gamma';
 
     const userData = Object.values(preResultInputs).map((item) => (item > 0 ? Number(item) : false));
-    values.splice(-3, 3, ...userData);
+    values.splice(-2, 2, ...userData);
     const calculatedValues = dataCalculation(...values);
 
     setResult(calculatedValues);

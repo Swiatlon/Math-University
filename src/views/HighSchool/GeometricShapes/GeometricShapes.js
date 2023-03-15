@@ -8,7 +8,6 @@ import { FieldTopic } from './GeometricShapes.style';
 import squareImg from 'assets/images/GeometricShapes/square.png';
 import rectangleImg from 'assets/images/GeometricShapes/rectangle.png';
 import triangleImg from 'assets/images/GeometricShapes/triangle.png';
-import trapezeImg from 'assets/images/GeometricShapes/trapeze.png';
 import parallelogramImg from 'assets/images/GeometricShapes/parallelogram.png';
 import rhombImg from 'assets/images/GeometricShapes/rhomb.png';
 import circleImg from 'assets/images/GeometricShapes/circle.png';
@@ -17,7 +16,6 @@ import { useState } from 'react';
 import Square from 'components/organisms/Square/Square';
 import Rectangle from 'components/organisms/Rectangle/Rectangle';
 import Triangle from 'components/organisms/Triangle/Triangle';
-import Trapeze from 'components/organisms/Trapeze/Trapeze';
 import Parallelogram from 'components/organisms/Parallelogram/Parallelogram';
 import Rhomb from 'components/organisms/Rhomb/Rhomb';
 import Circle from 'components/organisms/Circle/Circle';
@@ -29,11 +27,10 @@ function GeometricShapes() {
     { name: 'Kwadrat', url: squareImg },
     { name: 'Prostokąt', url: rectangleImg },
     { name: 'Trójkąt', url: triangleImg },
-    { name: 'Trapez', url: trapezeImg },
     { name: 'Równoległobok', url: parallelogramImg },
-    { name: 'Romb', url: rhombImg },
-    { name: 'Koło', url: circleImg },
     { name: 'Wycinek Koła', url: circleSectorImg },
+    { name: 'Koło', url: circleImg },
+    { name: 'Romb', url: rhombImg },
   ];
 
   const shapes = () => {
@@ -44,8 +41,6 @@ function GeometricShapes() {
         return <Rectangle />;
       case 'Trójkąt':
         return <Triangle />;
-      case 'Trapez':
-        return <Trapeze />;
       case 'Równoległobok':
         return <Parallelogram />;
       case 'Romb':

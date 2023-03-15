@@ -46,7 +46,6 @@ function Rhomb() {
     let oldAmountOfUndefined;
     let actuaAmountOfUndefined;
     do {
-      console.log(a);
       oldAmountOfUndefined = countUndefined([a, alfa, h, d1, d2, circuit, field]);
       a = a || RhombFunctions.getSide(field, h, alfa, d1, d2, circuit);
       h = h || RhombFunctions.getHeight(a, field, alfa);
@@ -56,7 +55,6 @@ function Rhomb() {
       circuit = circuit || RhombFunctions.getCircuit(a);
       field = field || RhombFunctions.getField(d1, d2, a, h, alfa);
       actuaAmountOfUndefined = countUndefined([a, alfa, h, d1, d2, circuit, field]);
-      console.log(RhombFunctions.getAngle(a, field, h));
     } while (oldAmountOfUndefined !== actuaAmountOfUndefined);
     return transformAllToDecIfNeeded({ a, alfa, h, d1, d2, circuit, field }, 2);
   };
