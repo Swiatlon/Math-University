@@ -3,10 +3,7 @@ export const menuArch = [
     title: 'O nas(Coming Soon!)',
   },
   {
-
     title: 'Informatyka',
-
-
   },
   {
     title: 'logo',
@@ -21,7 +18,7 @@ export const menuArch = [
       },
       {
         title: 'Szkoła Średnia',
-
+        submenu: [{ title: 'Geometria', submenu: [{ title: 'Figury Geometryczne' }] }],
       },
       {
         title: 'Studia',

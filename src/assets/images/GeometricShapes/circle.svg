@@ -1,0 +1,14 @@
+<svg width="266" height="266" viewBox="0 0 266 266" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="133" cy="133" r="132" fill="white" stroke="black" stroke-width="2" />
+    <line x1="136" y1="2" x2="136" y2="266" stroke="#03B7DF" stroke-width="2" />
+    <line x1="135" y1="133" x2="266" y2="133" stroke="#F50808" stroke-width="2" />
+    <circle cx="135" cy="133" r="5" fill="black" />
+    <text fill="#0ABEE6" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="107.32" y="113.091">d</tspan>
+    </text>
+    <text fill="#CB2020" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="36"
+        letter-spacing="0em">
+        <tspan x="182.303" y="124.091">r</tspan>
+    </text>
+</svg>

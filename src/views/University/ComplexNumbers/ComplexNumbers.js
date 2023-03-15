@@ -2,7 +2,7 @@ import React from 'react';
 import { TopicTitle } from 'components/atoms/TopicTitle/TopicTitle.style';
 import { TopicSubTitleContent } from 'components/atoms/TopicSubTitleContent/TopicSubTitleContent.style';
 import TopicSubTitleContainer from 'components/molecules/TopicSubTitleContainer/TopicSubTitleContainer';
-import { ComplexNumbersTable } from './ComplexNumbers.style';
+import ResultTable from 'components/molecules/ResultTable/ResultTable';
 import overview from 'assets/images/ComplexNumbers.jpg';
 import { ComplexNumberInput } from './ComplexNumbers.style';
 import { useRef, useState } from 'react';
@@ -102,7 +102,7 @@ function ComplexNumbers() {
             onInput={inputHandler}
           ></ComplexNumberInput>
           {results.errorOccuried && <p className="error-message">Wrong expression, you need to write it correct!</p>}
-          <ComplexNumbersTable>
+          <ResultTable>
             <div>
               Wynik: <p>{results.result}</p>
             </div>
@@ -124,7 +124,7 @@ function ComplexNumbers() {
             <div>
               Część urojona - Im(z): <p>{results.im}</p>
             </div>
-          </ComplexNumbersTable>
+          </ResultTable>
           {/* <ComplexNumbersCoordinate ref={canvasRef}></ComplexNumbersCoordinate> */}
         </TopicSubTitleContent>
       </TopicSubTitleContainer>

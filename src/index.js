@@ -9,6 +9,7 @@ import SchoolLayout from 'layouts/SchoolLayout';
 import Matrices from 'views/University/Matrices/Matrices';
 import ComplexNumbers from 'views/University/ComplexNumbers/ComplexNumbers';
 import WrittenMath from 'views/ElementarySchool/WrittenMath/WrittenMath';
+import GeometricShape from 'views/HighSchool/GeometricShapes/GeometricShapes';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -61,6 +62,25 @@ const router = createBrowserRouter([
                     element: <Navigate to="/error-page" />,
                   },
                   { path: 'Działania-pisemne', element: <WrittenMath /> },
+                ],
+              },
+            ],
+          },
+          {
+            path: 'Szkoła-Średnia',
+            children: [
+              {
+                index: true,
+                element: <Navigate to="/error-page" />,
+              },
+              {
+                path: 'Geometria',
+                children: [
+                  {
+                    index: true,
+                    element: <Navigate to="/error-page" />,
+                  },
+                  { path: 'Figury-geometryczne', element: <GeometricShape /> },
                 ],
               },
             ],
