@@ -25,21 +25,13 @@
         letter-spacing="0em">
         <tspan x="40.3574" y="263.091">a</tspan>
     </text>
-    <text fill="#FE2828" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="15"
-        letter-spacing="0em">
-        <tspan x="188.709" y="183.182">1</tspan>
-    </text>
     <text fill="#FE2828" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="28"
         letter-spacing="0em">
-        <tspan x="171.318" y="183.182">d</tspan>
-    </text>
-    <text fill="#0788FF" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="15"
-        letter-spacing="0em">
-        <tspan x="110.654" y="108.182">2</tspan>
+        <tspan x="168.297" y="183.182">d1</tspan>
     </text>
     <text fill="#0788FF" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="28"
         letter-spacing="0em">
-        <tspan x="93.2637" y="108.182">d</tspan>
+        <tspan x="89.3281" y="108.182">d2</tspan>
     </text>
     <path
         d="M113.5 282L110 286.5C109.004 285.83 114.5 293 125 308L141.5 285L137 279L134 278L130 278L121.5 278L117.5 279L113.5 282Z"
