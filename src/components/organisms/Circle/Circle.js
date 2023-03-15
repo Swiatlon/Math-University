@@ -1,26 +1,21 @@
 import React, { useState, useRef } from 'react';
-import { ReactComponent as SvgRhomb } from 'assets/images/GeometricShapes/rhomb.svg';
+import { ReactComponent as SvgCircle } from 'assets/images/GeometricShapes/circle.svg';
 import { ChoosedPartContainer } from 'views/HighSchool/GeometricShapes/GeometricShapes.style';
 import { creatingInputsOnText } from 'helpers/Helpers';
 import DynamicInputForImage from 'components/atoms/DynamicInputForImage/DynamicInputForImage';
 import { GeometricButton } from 'components/atoms/GeometricButton/GeometricButton.style';
-import InputWithUnits from '../InputWithUnits/InputWithUnits';
+import InputWithUnits from 'components/molecules/InputWithUnits/InputWithUnits';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';
-import ResultTable from '../ResultTable/ResultTable';
+import ResultTable from 'components/molecules/ResultTable/ResultTable';
 import { transformToDecIfNeeded } from 'helpers/Helpers';
-import { countUndefined } from 'helpers/Helpers';
-import { transformAllToDecIfNeeded } from 'helpers/Helpers';
-import { RhombFunctions } from 'helpers/GeometricFunctions/RhombFunctions';
-function Rhomb() {
+function Circle() {
   const initialResultState = {
-    a: '',
-    alfa: '',
-    h: '',
-    d1: '',
-    d2: '',
+    r: '',
+    d: '',
     circuit: '',
     field: '',
   };
+
   const imagesInputsRefs = useRef([]);
   const [inputsToRender, setInputsToRender] = useState([]);
   const [preResultInputs, setpreResultInputs] = useState({
@@ -42,26 +37,17 @@ function Rhomb() {
     imagesInputsRefs.current = [];
   };
 
-  const dataCalculation = (a, alfa, h, d1, d2, circuit, field) => {
-    let oldAmountOfUndefined;
-    let actuaAmountOfUndefined;
-    do {
-      oldAmountOfUndefined = countUndefined([a, alfa, h, d1, d2, circuit, field]);
-      a = a || RhombFunctions.getSide(field, h, alfa, d1, d2, circuit);
-      h = h || RhombFunctions.getHeight(a, field, alfa);
-      d1 = d1 || RhombFunctions.getDiagonal(field, d2, a);
-      d2 = d2 || RhombFunctions.getDiagonal(field, d1, a);
-      alfa = alfa || RhombFunctions.getAngle(a, field, h);
-      circuit = circuit || RhombFunctions.getCircuit(a);
-      field = field || RhombFunctions.getField(d1, d2, a, h, alfa);
-      actuaAmountOfUndefined = countUndefined([a, alfa, h, d1, d2, circuit, field]);
-      console.log(RhombFunctions.getAngle(a, field, h));
-    } while (oldAmountOfUndefined !== actuaAmountOfUndefined);
-    return transformAllToDecIfNeeded({ a, alfa, h, d1, d2, circuit, field }, 2);
+  const dataCalculation = (r, d, circuit, field) => {
+    const rPattern = d / 2 || circuit / 2 || Math.sqrt(field);
+    r = r || rPattern;
+    d = d || 2 * r;
+    circuit = circuit || 2 * r;
+    field = field || r ** 2;
+    return { r, d, circuit, field };
   };
 
   const submitData = () => {
-    const variables = ['a', 'alfa', 'h', 'd1', 'd2', 'circuit', 'field'];
+    const variables = ['r', 'd', 'circuit', 'field'];
 
     const values = variables.map((variable) => {
       const value = Number(
@@ -69,13 +55,13 @@ function Rhomb() {
       );
       return value > 0 ? value : false;
     });
-    // After set items we change  α to alfa
-
-    variables[1] = 'alfa';
 
     const userData = Object.values(preResultInputs).map((item) => (item > 0 ? Number(item) : false));
     values.splice(-2, 2, ...userData);
     const calculatedValues = dataCalculation(...values);
+    // set result to string schema with PI
+    calculatedValues.circuit += 'π ';
+    calculatedValues.field += 'π ';
 
     setResult(calculatedValues);
   };
@@ -83,9 +69,9 @@ function Rhomb() {
     <ChoosedPartContainer>
       <h2>Podaj wszystkie wartości które znasz</h2>
       <div style={{ position: 'relative' }} className="bigger">
-        <SvgRhomb
+        <SvgCircle
           onClick={(e) => creatingInputsOnText(e, inputsToRender, imagesInputsRefs, setInputsToRender)}
-        ></SvgRhomb>
+        ></SvgCircle>
         {inputsToRender.map((item, index) => (
           <DynamicInputForImage
             key={index}
@@ -139,4 +125,4 @@ function Rhomb() {
   );
 }
 
-export default Rhomb;
+export default Circle;

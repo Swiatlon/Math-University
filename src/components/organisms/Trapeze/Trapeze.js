@@ -11,9 +11,9 @@ import { FieldBox } from 'views/HighSchool/GeometricShapes/GeometricShapes.style
 import { FieldTopic } from 'views/HighSchool/GeometricShapes/GeometricShapes.style';
 import DynamicInputForImage from 'components/atoms/DynamicInputForImage/DynamicInputForImage';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';
-import InputWithUnits from '../InputWithUnits/InputWithUnits';
+import InputWithUnits from 'components/molecules/InputWithUnits/InputWithUnits';
 import { GeometricButton } from 'components/atoms/GeometricButton/GeometricButton.style';
-import ResultTable from '../ResultTable/ResultTable';
+import ResultTable from 'components/molecules/ResultTable/ResultTable';
 import { transformToDecIfNeeded } from 'helpers/Helpers';
 import { ChoosedPartContainer } from 'views/HighSchool/GeometricShapes/GeometricShapes.style';
 import { creatingInputsOnText } from 'helpers/Helpers';

@@ -14,14 +14,14 @@ import rhombImg from 'assets/images/GeometricShapes/rhomb.png';
 import circleImg from 'assets/images/GeometricShapes/circle.png';
 import circleSectorImg from 'assets/images/GeometricShapes/circleSector.png';
 import { useState } from 'react';
-import Square from 'components/molecules/Square/Square';
-import Rectangle from 'components/molecules/Rectangle/Rectangle';
-import Triangle from 'components/molecules/Triangle/Triangle';
-import Trapeze from 'components/molecules/Trapeze/Trapeze';
-import Parallelogram from 'components/molecules/Parallelogram/Parallelogram';
-import Rhomb from 'components/molecules/Rhomb/Rhomb';
-import Circle from 'components/molecules/Circle/Circle';
-import CircleSector from 'components/molecules/CircleSector/CircleSector';
+import Square from 'components/organisms/Square/Square';
+import Rectangle from 'components/organisms/Rectangle/Rectangle';
+import Triangle from 'components/organisms/Triangle/Triangle';
+import Trapeze from 'components/organisms/Trapeze/Trapeze';
+import Parallelogram from 'components/organisms/Parallelogram/Parallelogram';
+import Rhomb from 'components/organisms/Rhomb/Rhomb';
+import Circle from 'components/organisms/Circle/Circle';
+import CircleSector from 'components/organisms/CircleSector/CircleSector';
 function GeometricShapes() {
   const [choosedShape, setChoosedShape] = useState(null);
   // Szesciokat // Osmiokat // WIELOKAT SUMA KATOW ITD // DELTOID

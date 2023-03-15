@@ -1,4 +1,4 @@
-import { transformToDecIfNeeded } from './Helpers';
+import { transformToDecIfNeeded } from '../Helpers';
 const TriangleFunctions = {
   getSideFromCircuit: function (secondSide, thirdSide, circuit) {
     if (!secondSide || !thirdSide || !circuit) return false;

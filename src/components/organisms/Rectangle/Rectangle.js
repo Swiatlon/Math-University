@@ -1,9 +1,9 @@
 import React from 'react';
 import { RectangleContainer } from './Rectangle.style';
-import InputWithUnits from '../InputWithUnits/InputWithUnits';
+import InputWithUnits from 'components/molecules/InputWithUnits/InputWithUnits';
 import { useRef, useState } from 'react';
 import SelectList from 'components/atoms/SelectList/SelectList';
-import ResultTable from '../ResultTable/ResultTable';
+import ResultTable from 'components/molecules/ResultTable/ResultTable';
 import { GeometricButton } from 'components/atoms/GeometricButton/GeometricButton.style';
 import Units from 'components/atoms/Units/Units';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';

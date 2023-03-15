@@ -1,26 +1,26 @@
 import React, { useState, useRef } from 'react';
-import { ReactComponent as SvgParallelogram } from 'assets/images/GeometricShapes/parallelogram.svg';
+import { ReactComponent as SvgRhomb } from 'assets/images/GeometricShapes/rhomb.svg';
 import { ChoosedPartContainer } from 'views/HighSchool/GeometricShapes/GeometricShapes.style';
 import { creatingInputsOnText } from 'helpers/Helpers';
 import DynamicInputForImage from 'components/atoms/DynamicInputForImage/DynamicInputForImage';
 import { GeometricButton } from 'components/atoms/GeometricButton/GeometricButton.style';
-import InputWithUnits from '../InputWithUnits/InputWithUnits';
+import InputWithUnits from 'components/molecules/InputWithUnits/InputWithUnits';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';
-import ResultTable from '../ResultTable/ResultTable';
+import ResultTable from 'components/molecules/ResultTable/ResultTable';
 import { transformToDecIfNeeded } from 'helpers/Helpers';
-function Parallelogram() {
+import { countUndefined } from 'helpers/Helpers';
+import { transformAllToDecIfNeeded } from 'helpers/Helpers';
+import { RhombFunctions } from 'helpers/GeometricFunctions/RhombFunctions';
+function Rhomb() {
   const initialResultState = {
     a: '',
-    b: '',
     alfa: '',
-    gamma: ' ',
     h: '',
     d1: '',
     d2: '',
     circuit: '',
     field: '',
   };
-
   const imagesInputsRefs = useRef([]);
   const [inputsToRender, setInputsToRender] = useState([]);
   const [preResultInputs, setpreResultInputs] = useState({
@@ -42,9 +42,27 @@ function Parallelogram() {
     imagesInputsRefs.current = [];
   };
 
-  const dataCalculation = (a, b, alfa, gamma, h, d1, d2, circuit, field) => {};
+  const dataCalculation = (a, alfa, h, d1, d2, circuit, field) => {
+    let oldAmountOfUndefined;
+    let actuaAmountOfUndefined;
+    do {
+      console.log(a);
+      oldAmountOfUndefined = countUndefined([a, alfa, h, d1, d2, circuit, field]);
+      a = a || RhombFunctions.getSide(field, h, alfa, d1, d2, circuit);
+      h = h || RhombFunctions.getHeight(a, field, alfa);
+      d1 = d1 || RhombFunctions.getDiagonal(field, d2, a);
+      d2 = d2 || RhombFunctions.getDiagonal(field, d1, a);
+      alfa = alfa || RhombFunctions.getAngle(a, field, h);
+      circuit = circuit || RhombFunctions.getCircuit(a);
+      field = field || RhombFunctions.getField(d1, d2, a, h, alfa);
+      actuaAmountOfUndefined = countUndefined([a, alfa, h, d1, d2, circuit, field]);
+      console.log(RhombFunctions.getAngle(a, field, h));
+    } while (oldAmountOfUndefined !== actuaAmountOfUndefined);
+    return transformAllToDecIfNeeded({ a, alfa, h, d1, d2, circuit, field }, 2);
+  };
+
   const submitData = () => {
-    const variables = ['a', 'b', 'alfa', 'gamma', 'h', 'd1', 'd2', 'circuit', 'field'];
+    const variables = ['a', 'α', 'h', 'd1', 'd2', 'circuit', 'field'];
 
     const values = variables.map((variable) => {
       const value = Number(
@@ -52,13 +70,12 @@ function Parallelogram() {
       );
       return value > 0 ? value : false;
     });
-    // After set items we change  α to alfa and same for beta
+    // After set items we change  α to alfa
 
-    variables[2] = 'alfa';
-    variables[3] = 'gamma';
+    variables[1] = 'alfa';
 
     const userData = Object.values(preResultInputs).map((item) => (item > 0 ? Number(item) : false));
-    values.splice(-3, 3, ...userData);
+    values.splice(-2, 2, ...userData);
     const calculatedValues = dataCalculation(...values);
 
     setResult(calculatedValues);
@@ -67,9 +84,9 @@ function Parallelogram() {
     <ChoosedPartContainer>
       <h2>Podaj wszystkie wartości które znasz</h2>
       <div style={{ position: 'relative' }} className="bigger">
-        <SvgParallelogram
+        <SvgRhomb
           onClick={(e) => creatingInputsOnText(e, inputsToRender, imagesInputsRefs, setInputsToRender)}
-        ></SvgParallelogram>
+        ></SvgRhomb>
         {inputsToRender.map((item, index) => (
           <DynamicInputForImage
             key={index}
@@ -123,4 +140,4 @@ function Parallelogram() {
   );
 }
 
-export default Parallelogram;
+export default Rhomb;

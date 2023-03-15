@@ -1,6 +1,6 @@
 import React from 'react';
 import { SquareContainer } from './Square.style';
-import ResultTable from '../ResultTable/ResultTable';
+import ResultTable from 'components/molecules/ResultTable/ResultTable';
 import InputWithUnits from 'components/molecules/InputWithUnits/InputWithUnits';
 import { useState, useRef } from 'react';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';

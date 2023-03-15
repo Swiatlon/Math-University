@@ -4,12 +4,12 @@ import { ChoosedPartContainer } from 'views/HighSchool/GeometricShapes/Geometric
 import { creatingInputsOnText } from 'helpers/Helpers';
 import DynamicInputForImage from 'components/atoms/DynamicInputForImage/DynamicInputForImage';
 import { GeometricButton } from 'components/atoms/GeometricButton/GeometricButton.style';
-import InputWithUnits from '../InputWithUnits/InputWithUnits';
+import InputWithUnits from 'components/molecules/InputWithUnits/InputWithUnits';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';
-import ResultTable from '../ResultTable/ResultTable';
+import ResultTable from 'components/molecules/ResultTable/ResultTable';
 import { transformAllToDecIfNeeded } from 'helpers/Helpers';
 import { countUndefined } from 'helpers/Helpers';
-import { CircleAndSector, Sector } from 'helpers/SectorFunctions';
+import { Sector } from 'helpers/GeometricFunctions/SectorFunctions';
 function CircleSector() {
   const initialResultState = {
     r: '',

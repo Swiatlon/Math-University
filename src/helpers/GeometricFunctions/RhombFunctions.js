@@ -1,4 +1,4 @@
-import { radToDeg } from 'helpers/Helpers';
+import { radToDeg, degToRad } from 'helpers/Helpers';
 export const RhombFunctions = {
   getCircuit: function (side) {
     if (!side) return false;
@@ -12,12 +12,12 @@ export const RhombFunctions = {
 
     if (height) return side * height;
 
-    if (alfa) return side ** 2 * Math.sin(alfa);
+    if (alfa) return side ** 2 * Math.sin(degToRad(alfa));
     else return false;
   },
 
   getSide: function (field, height, alfa, d1, d2, circuit) {
-    if (d1 && d2) return Math.sqrt(Math.pow(d1 / 2) + Math.pow(d2 / 2));
+    if (d1 && d2) return Math.sqrt((d1 / 2) ** 2 + (d2 / 2) ** 2);
 
     if (circuit) return circuit / 4;
 
@@ -25,7 +25,7 @@ export const RhombFunctions = {
 
     if (height) return field / height;
 
-    if (alfa) return Math.sqrt(field / Math.sin(alfa));
+    if (alfa) return Math.sqrt(field / Math.sin(degToRad(alfa)));
     else return false;
   },
 
@@ -43,7 +43,7 @@ export const RhombFunctions = {
 
     if (field) return field / side;
 
-    if (alfa) return Math.sin(alfa) * alfa;
+    if (alfa) return Math.sin(degToRad(alfa)) * side;
     else return false;
   },
 

@@ -1,17 +1,22 @@
 import React, { useState, useRef } from 'react';
-import { ReactComponent as SvgCircle } from 'assets/images/GeometricShapes/circle.svg';
+import { ReactComponent as SvgParallelogram } from 'assets/images/GeometricShapes/parallelogram.svg';
 import { ChoosedPartContainer } from 'views/HighSchool/GeometricShapes/GeometricShapes.style';
 import { creatingInputsOnText } from 'helpers/Helpers';
 import DynamicInputForImage from 'components/atoms/DynamicInputForImage/DynamicInputForImage';
 import { GeometricButton } from 'components/atoms/GeometricButton/GeometricButton.style';
-import InputWithUnits from '../InputWithUnits/InputWithUnits';
+import InputWithUnits from 'components/molecules/InputWithUnits/InputWithUnits';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';
-import ResultTable from '../ResultTable/ResultTable';
+import ResultTable from 'components/molecules/ResultTable/ResultTable';
 import { transformToDecIfNeeded } from 'helpers/Helpers';
-function Circle() {
+function Parallelogram() {
   const initialResultState = {
-    r: '',
-    d: '',
+    a: '',
+    b: '',
+    alfa: '',
+    gamma: ' ',
+    h: '',
+    d1: '',
+    d2: '',
     circuit: '',
     field: '',
   };
@@ -37,17 +42,9 @@ function Circle() {
     imagesInputsRefs.current = [];
   };
 
-  const dataCalculation = (r, d, circuit, field) => {
-    const rPattern = d / 2 || circuit / 2 || Math.sqrt(field);
-    r = r || rPattern;
-    d = d || 2 * r;
-    circuit = circuit || 2 * r;
-    field = field || r ** 2;
-    return { r, d, circuit, field };
-  };
-
+  const dataCalculation = (a, b, alfa, gamma, h, d1, d2, circuit, field) => {};
   const submitData = () => {
-    const variables = ['r', 'd', 'circuit', 'field'];
+    const variables = ['a', 'b', 'alfa', 'gamma', 'h', 'd1', 'd2', 'circuit', 'field'];
 
     const values = variables.map((variable) => {
       const value = Number(
@@ -55,13 +52,14 @@ function Circle() {
       );
       return value > 0 ? value : false;
     });
+    // After set items we change  α to alfa and same for beta
+
+    variables[2] = 'alfa';
+    variables[3] = 'gamma';
 
     const userData = Object.values(preResultInputs).map((item) => (item > 0 ? Number(item) : false));
-    values.splice(-2, 2, ...userData);
+    values.splice(-3, 3, ...userData);
     const calculatedValues = dataCalculation(...values);
-    // set result to string schema with PI
-    calculatedValues.circuit += 'π ';
-    calculatedValues.field += 'π ';
 
     setResult(calculatedValues);
   };
@@ -69,9 +67,9 @@ function Circle() {
     <ChoosedPartContainer>
       <h2>Podaj wszystkie wartości które znasz</h2>
       <div style={{ position: 'relative' }} className="bigger">
-        <SvgCircle
+        <SvgParallelogram
           onClick={(e) => creatingInputsOnText(e, inputsToRender, imagesInputsRefs, setInputsToRender)}
-        ></SvgCircle>
+        ></SvgParallelogram>
         {inputsToRender.map((item, index) => (
           <DynamicInputForImage
             key={index}
@@ -125,4 +123,4 @@ function Circle() {
   );
 }
 
-export default Circle;
+export default Parallelogram;
