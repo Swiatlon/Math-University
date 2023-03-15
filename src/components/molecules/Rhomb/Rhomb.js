@@ -8,6 +8,9 @@ import InputWithUnits from '../InputWithUnits/InputWithUnits';
 import { SubmitContainer } from 'components/atoms/GeometricButton/GeometricButton.style';
 import ResultTable from '../ResultTable/ResultTable';
 import { transformToDecIfNeeded } from 'helpers/Helpers';
+import { countUndefined } from 'helpers/Helpers';
+import { transformAllToDecIfNeeded } from 'helpers/Helpers';
+import { RhombFunctions } from 'helpers/GeometricFunctions/RhombFunctions';
 function Rhomb() {
   const initialResultState = {
     a: '',
@@ -39,7 +42,23 @@ function Rhomb() {
     imagesInputsRefs.current = [];
   };
 
-  const dataCalculation = (a, alfa, h, d1, d2, circuit, field) => {};
+  const dataCalculation = (a, alfa, h, d1, d2, circuit, field) => {
+    let oldAmountOfUndefined;
+    let actuaAmountOfUndefined;
+    do {
+      oldAmountOfUndefined = countUndefined([a, alfa, h, d1, d2, circuit, field]);
+      a = a || RhombFunctions.getSide(field, h, alfa, d1, d2, circuit);
+      h = h || RhombFunctions.getHeight(a, field, alfa);
+      d1 = d1 || RhombFunctions.getDiagonal(field, d2, a);
+      d2 = d2 || RhombFunctions.getDiagonal(field, d1, a);
+      alfa = alfa || RhombFunctions.getAngle(a, field, h);
+      circuit = circuit || RhombFunctions.getCircuit(a);
+      field = field || RhombFunctions.getField(d1, d2, a, h, alfa);
+      actuaAmountOfUndefined = countUndefined([a, alfa, h, d1, d2, circuit, field]);
+      console.log(RhombFunctions.getAngle(a, field, h));
+    } while (oldAmountOfUndefined !== actuaAmountOfUndefined);
+    return transformAllToDecIfNeeded({ a, alfa, h, d1, d2, circuit, field }, 2);
+  };
 
   const submitData = () => {
     const variables = ['a', 'alfa', 'h', 'd1', 'd2', 'circuit', 'field'];
@@ -50,12 +69,12 @@ function Rhomb() {
       );
       return value > 0 ? value : false;
     });
-    // After set items we change  α to alfa and same for beta
+    // After set items we change  α to alfa
 
     variables[1] = 'alfa';
 
     const userData = Object.values(preResultInputs).map((item) => (item > 0 ? Number(item) : false));
-    values.splice(-3, 3, ...userData);
+    values.splice(-2, 2, ...userData);
     const calculatedValues = dataCalculation(...values);
 
     setResult(calculatedValues);
